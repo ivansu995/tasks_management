@@ -4,6 +4,7 @@ if(!isset($_SESSION['korisnik_id'])){
     header('Location: prijava.php');
     die();
 }
+
 ?>
 
 <!DOCTYPE html>

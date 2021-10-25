@@ -1,21 +1,29 @@
 <?php
 require_once __DIR__ . '/../tabele/Korisnik.php';
 
-// session_start();
-
-// if (!isset($_SESSION['korisnik_id'])) {
-//     header('Location: ../stranice/prijava.php');
-//     die();
-// }
-
-$id = $_GET['aktivacija'];
-$status_aktivacije = 'Da';
-
-var_dump($id);
-
-try {
-    Korisnik::aktivirajNalog($id, $status_aktivacije);
-    // echo '{"status":"uspesno"}';
-} catch (Exception $ex) {
-    echo '{"status":"'.$ex->getMessage().'"}';
+if (isset($_GET['key'])) {
+    $link_za_aktivaciju = $_GET['key'];
+    $podaci = Korisnik::pronadjiNalogZaAktivaciju($link_za_aktivaciju);
+    if ($podaci > 0) {
+        $aktivacija = Korisnik::aktivirajNalog($link_za_aktivaciju);
+        echo "Vas nalog je aktiviran, mozete se prijaviti sada!";
+        // if ($aktivacija > 0) {
+        //     header('Location: ../stranice/prijava.php');
+        //     die();
+        // } else {
+        //     echo "Greska prilikom aktivacije!";
+        // }
+    } else {
+        echo "Greska prilikom aktivacije!";
+    }
 }
+
+
+// var_dump($id);
+
+// try {
+//     Korisnik::aktivirajNalog($id, $status_aktivacije);
+//     // echo '{"status":"uspesno"}';
+// } catch (Exception $ex) {
+//     echo '{"status":"'.$ex->getMessage().'"}';
+// }

@@ -15,7 +15,7 @@ if (isset($_SESSION['korisnik_id'])) {
     <body>
 
         <form method="post" action="../logika/aktivirajNalog.php" id="aktivacija_naloga">
-            <?php if (isset($_GET['aktivacija'])) : ?>
+            <?php if (isset($_GET['key'])) : ?>
                 <p id="greska">
                     Uspesno ste aktivirali nalog. Kliknite na dugme da biste se nastavili.
                 </p>

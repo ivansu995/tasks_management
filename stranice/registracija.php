@@ -14,7 +14,11 @@
         <input type="date" name="datum_rodjenja" placeholder="Unesite datum rodjenja"><br>
         <input type="text" name="telefon" placeholder="Broj telefona"><br>
 
-        
+        <?php if(isset($_GET['greska_podaci'])) : ?>
+                <p id="greska_postoji_nalog">
+                    Polja ne smeju biti prazna!
+                </p>
+        <?php endif ?>
         <?php if(isset($_GET['greska_mail'])) : ?>
                 <p id="greska_postoji_nalog">
                     Vec postoji nalog sa tim korisnickim imenom ili email adresom!

@@ -12,17 +12,48 @@ class Korisnik
     public $telefon;
     public $email;
     public $datum_rodjenja;
-    public $da_li_je_aktivan;
+    public $tip_korisnika_id;
+    public $link_za_aktivaciju;
+    public $aktiviran;
 
-    public static function registracija($ime_prezime, $korisnicko_ime, $lozinka, $email, $telefon, $datum_rodjenja)
-    {
+    public static function registracija(
+        $ime_prezime,
+        $korisnicko_ime,
+        $lozinka,
+        $email,
+        $telefon,
+        $datum_rodjenja,
+        $tip_korisnika_id,
+        $link_za_aktivaciju,
+        $aktiviran
+    ) {
         $db = Database::getInstance();
 
         try
-        {   
-            $db->insert('Korisnik', 
-                'INSERT INTO korisnici (ime_prezime, korisnicko_ime, lozinka, email, telefon, datum_rodjenja) 
-                VALUES (:ime_prezime, :korisnicko_ime, :lozinka, :email, :telefon, :datum_rodjenja)',
+        {
+            $db->insert('Korisnik',
+                'INSERT INTO korisnici (
+                    ime_prezime,
+                    korisnicko_ime,
+                    lozinka,
+                    email,
+                    telefon,
+                    datum_rodjenja,
+                    tip_korisnika_id,
+                    link_za_aktivaciju,
+                    aktiviran
+                ) 
+                VALUES (
+                    :ime_prezime,
+                    :korisnicko_ime,
+                    :lozinka,
+                    :email,
+                    :telefon,
+                    :datum_rodjenja,
+                    :tip_korisnika_id,
+                    :link_za_aktivaciju,
+                    :aktiviran
+                )',
                 [
                     ':ime_prezime' => $ime_prezime,
                     ':korisnicko_ime' => $korisnicko_ime,
@@ -30,6 +61,9 @@ class Korisnik
                     ':telefon' => $telefon,
                     ':email' => $email,
                     ':datum_rodjenja' => $datum_rodjenja,
+                    ':tip_korisnika_id' => $tip_korisnika_id,
+                    ':link_za_aktivaciju' => $link_za_aktivaciju,
+                    ':aktiviran' => $aktiviran
                 ]
             );
         }
@@ -120,16 +154,34 @@ class Korisnik
         return null;
     }
 
-    public static function aktivirajNalog($id, $status_aktivacije) 
+    public static function pronadjiNalogZaAktivaciju($link_za_aktivaciju) 
     {
         $db=Database::getInstance();
 
-        $db->update('Korisnik',
-            'UPDATE korisnici SET da_li_je_aktivan=:aktivan WHERE id=:id',
+        $korisnik = $db->select(
+            'Korisnik',
+            'SELECT link_za_aktivaciju, aktiviran 
+            FROM korisnici 
+            WHERE aktiviran = 0 AND link_za_aktivaciju=:link_za_aktivaciju LIMIT 1',
             [
-                ':id' => $id,
-                'aktivan' => $status_aktivacije,
+                'link_za_aktivaciju' => $link_za_aktivaciju,
             ]
         );
+        return $korisnik;
+    }
+
+    public static function aktivirajNalog($link_za_aktivaciju)
+    {
+        $db=Database::getInstance();
+
+        $aktivacija = $db->update('Korisnik',
+            'UPDATE korisnici
+            SET aktiviran = 1
+            WHERE link_za_aktivaciju=:link_za_aktivaciju LIMIT 1',
+            [
+                ':link_za_aktivaciju' => $link_za_aktivaciju,
+            ]
+        );
+        return $aktivacija;
     }
 }
