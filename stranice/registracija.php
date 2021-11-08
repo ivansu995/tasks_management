@@ -38,7 +38,7 @@
         <input type="submit" value="Registruj se">
         <hr>
         <a href="prijava.php">Prijavi se</a><br>
-        <a href="promenaLozinke.php">Promeni lozinku</a><br>
+        <a href="./promenaLozinkeEmail.php">Promeni lozinku</a><br>
     </form>
 </body>
 </html>

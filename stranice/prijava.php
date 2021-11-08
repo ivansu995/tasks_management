@@ -32,12 +32,16 @@ if (isset($_SESSION['korisnik_id'])) {
                 </p>
             <?php endif ?>
             <hr>
-            <a href="promenaLozinke.php">
+            <a href="./promenaLozinkeEmail.php">
                 Promeni lozinku
             </a>
             <br>
             <a href="./registracija.php">
                 Registruj se
+            </a>
+            <br>
+            <a href="./aktiviranNalog.php">
+                Posalji mail za aktivaciju naloga
             </a>
             <br>
         </form>

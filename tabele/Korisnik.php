@@ -109,7 +109,7 @@ class Korisnik
         $db=Database::getInstance();
 
         $korisnici = $db->select('Korisnik', 
-            'SELECT email FROM korisnici 
+            'SELECT * FROM korisnici 
             WHERE email LIKE :email',
             [
                 ':email'=>$email,
@@ -132,6 +132,39 @@ class Korisnik
             WHERE email = :email',
             [
                 ':email'=>$email,
+                ':nova_lozinka'=>$nova_lozinka,
+            ]
+        );
+    }
+
+    public static function getKorisnikByToken($link_za_aktivaciju)
+    {
+        $db=Database::getInstance();
+
+        $korisnici = $db->select('Korisnik', 
+            'SELECT * FROM korisnici 
+            WHERE link_za_aktivaciju LIKE :link_za_aktivaciju',
+            [
+                ':link_za_aktivaciju'=>$link_za_aktivaciju,
+            ]
+        );
+
+        foreach($korisnici as $korisnik){
+            return $korisnik;
+        }
+        return null;
+    }
+
+    public static function resetujLozinku($link_za_aktivaciju, $nova_lozinka)
+    {
+        $db=Database::getInstance();
+
+        $db->update('Korisnik',
+            'UPDATE korisnici
+            SET lozinka = :nova_lozinka
+            WHERE link_za_aktivaciju = :link_za_aktivaciju',
+            [
+                ':link_za_aktivaciju'=>$link_za_aktivaciju,
                 ':nova_lozinka'=>$nova_lozinka,
             ]
         );

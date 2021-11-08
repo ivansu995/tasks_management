@@ -50,6 +50,8 @@ $korisnik_id = Korisnik::registracija(
     0
 );
 
+$link = "http://localhost/tasks_management/logika/aktivirajNalog.php?key=$link_za_aktivaciju";
+
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
@@ -74,12 +76,12 @@ try {
     $mail->Subject = 'Aktivacija naloga';
     $mail->Body = "Postovani,
         $ime_prezime aktivirajte nalog klikom na link: 
-        <a href='http://localhost/tasks_management/logika/aktivirajNalog.php?key=$link_za_aktivaciju'>
+        <a href=$link>
             Link
         </a> ili <br>
-        http://localhost/tasks_management/logika/aktivirajNalog.php?key=$link_za_aktivaciju" 
+        $link" 
         ;
-    $mail->AltBody = "Aktivirajte nalog na sledecem linku http://localhost/tasks_management/logika/aktivirajNalog.php?key=$link_za_aktivaciju";
+    $mail->AltBody = "Aktivirajte nalog na sledecem linku $link";
 
     $mail->send();
 
