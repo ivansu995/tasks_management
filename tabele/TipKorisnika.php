@@ -8,5 +8,61 @@ class TipKorisnika
     public $id;
     public $naziv_tipa;
 
+    public static function getByName($naziv_tipa)
+    {
+        $db = Database::getInstance();
+
+        $tipovi = $db->select('TipKorisnika', 
+            'SELECT * FROM tipovi_korisnika WHERE naziv_tipa = :naziv_tipa',
+            [
+                ':naziv_tipa' => $naziv_tipa,
+            ]);
+
+        foreach($tipovi as $tip) {
+            return $tip;
+        }
+        return null;
+    }
+
+    public static function getAll()
+    {
+        $db = Database::getInstance();
+
+        return $db->select('TipKorisnika',
+        'SELECT * FROM tipovi_korisnika');
+    }
+
+    public static function snimi($naziv)
+    {
+        $db = Database::getInstance();
+
+        $id = $db->insert('TipKorisnika',
+            'INSERT INTO tipovi_korisnika (naziv_tipa) VALUES (:naziv)',
+            [
+                ':naziv' => $naziv,
+            ]
+        );
+
+        $tipovi = $db->select('TipKorisnika',
+            'SELECT * FROM tipovi_korisnika WHERE id = :id',
+            [
+                ':id' => $id,
+            ]
+        );
+        foreach($tipovi as $tip){
+            return $tip;
+        }
+        return null;
+    }
     
+    public static function obrisi($id)
+    {
+        $db=Database::getInstance();
+
+        $db->delete('DELETE FROM tipovi_korisnika WHERE id=:id',
+            [
+                ':id' => $id,
+            ]
+        );
+    }
 }
