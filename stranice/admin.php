@@ -41,12 +41,12 @@ if (!isset($_SESSION['korisnik_admin_id'])) {
             </ul>
         </nav>
         <hr>
-        <?php
-            if (isset($_GET['strana'])) {
-                if ($_GET['strana'] === 'tipoviKorisnika') {
-                    require_once __DIR__ . '/../administracija/tipoviKorisnika.php';
-                }
-            }
-        ?>
+        <?php if (isset($_GET['strana'])): ?> 
+            <?php if ($_GET['strana'] === 'tipoviKorisnika'): ?> 
+                <?php require_once __DIR__ . '/../administracija/tipoviKorisnika.php'; ?> 
+            <?php elseif ($_GET['strana'] === 'korisnici'): ?>
+                <?php require_once __DIR__ . '/../administracija/korisnici.php'; ?>    
+            <?php endif ?>     
+        <?php endif ?>
     </body>
 </html>

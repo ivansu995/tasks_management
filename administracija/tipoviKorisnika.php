@@ -15,6 +15,7 @@ $tipovi = TipKorisnika::getAll();
                     'id':id
                 },
                 'success': function(poruka) {
+                    console.log(poruka);
                     var p = JSON.parse(poruka);
                     if(p.status === "uspesno") {
                         red.remove();
@@ -22,12 +23,22 @@ $tipovi = TipKorisnika::getAll();
                 }
             })
         });
+
+        $('.izmena').on('click', function() {
+            var id = $(this).attr('id').split('_')[1];
+            var red = $(this).parent().parent();
+            var naziv = red.find('td')[1].innerHTML;
+            $('#naziv').val(naziv);
+            $('#naziv_id').val(id);
+            $('form').attr('action', '../logika/izmeniTipKorisnika.php');
+        });
     })
 </script>
 
 <h2>Uloge korisnika</h2>
 <form action="../logika/dodajTipKorisnika.php" method="post">
-    <input type="text" name="naziv" id="naziv" placeholder="Unesite naziv">
+    <input type="text" name="naziv_tipa" id="naziv" placeholder="Unesite naziv">
+    <input type="hidden" name="naziv_id" id="naziv_id">
     <input type="submit" value="Snimi">
 </form>
 <table>

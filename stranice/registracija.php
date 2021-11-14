@@ -6,7 +6,7 @@
 </head>
 <body>
     <form method="post" action="../logika/registrujSe.php" id="registracija_forma">
-        <input type="text" name="email" placeholder="E-mail adresa"><br>
+        <input type="email" name="email" placeholder="E-mail adresa"><br>
         <input type="text" name="korisnicko_ime" placeholder="Unesite korisnicko ime"><br>
         <input type="password" name="lozinka" placeholder="Lozinka"><br>
         <input type="password" name="ponovi_lozinku" placeholder="Ponovi lozinku"><br>

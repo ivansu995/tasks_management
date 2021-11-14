@@ -22,7 +22,7 @@ if (isset($_SESSION['korisnik_id'])) {
                 </p>
             <?php endif ?>
 
-            <input type="text" name="email" placeholder="Unesite e-mail adresu"><br>
+            <input type="email" name="email" placeholder="Unesite e-mail adresu"><br>
             <input type="password" name="lozinka" placeholder="Unesite lozinku"><br>
             <input type="submit" value="Prijavi se"><br>
 

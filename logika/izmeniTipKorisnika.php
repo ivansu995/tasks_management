@@ -8,10 +8,8 @@ if (!isset($_SESSION['korisnik_admin_id'])) {
 }
 
 $naziv = $_POST['naziv_tipa'];
-$tip = TipKorisnika::getByName($naziv);
+$id = $_POST['naziv_id'];
 
-if ($tip === null) {
-    TipKorisnika::snimi($naziv);
-}
+TipKorisnika::izmeni($id, $naziv);
 
 header('Location: ../stranice/admin.php?strana=tipoviKorisnika');

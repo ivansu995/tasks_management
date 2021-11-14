@@ -217,4 +217,21 @@ class Korisnik
         );
         return $aktivacija;
     }
+
+    public static function getAll()
+    {
+        $db = Database::getInstance();
+
+        return $db->select('Korisnik',
+        'SELECT * FROM korisnici');
+    }
+
+    public static function obrisi($id)
+    {
+        $db = Database::getInstance();
+        $db->delete('DELETE FROM korisnici WHERE id=:id', 
+        [
+            ':id' => $id,
+        ]);
+    }
 }

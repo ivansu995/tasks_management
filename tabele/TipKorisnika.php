@@ -49,7 +49,7 @@ class TipKorisnika
                 ':id' => $id,
             ]
         );
-        foreach($tipovi as $tip){
+        foreach($tipovi as $tip) {
             return $tip;
         }
         return null;
@@ -64,5 +64,21 @@ class TipKorisnika
                 ':id' => $id,
             ]
         );
+    }
+
+    public static function izmeni($id, $naziv)
+    {
+        $db=Database::getInstance();
+
+        $db->update('TipKorisnika',
+            'UPDATE tipovi_korisnika
+            SET naziv_tipa = :naziv
+            WHERE id = :id',
+            [
+                ':id' => $id,
+                ':naziv' => $naziv,
+            ]
+        );
+
     }
 }
