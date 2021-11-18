@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['korisnik_id'])){
+if(!isset($_SESSION['korisnik_id']) && !isset($_SESSION['korisnik_admin_id'])){
     header('Location: prijava.php');
     die();
 }

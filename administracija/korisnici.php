@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../tabele/Korisnik.php';
+require_once __DIR__ . '/../tabele/TipKorisnika.php';
 $korisnici = Korisnik::getAll();
+$tipovi = TipKorisnika::getAll();
 ?>
 
 <script>
@@ -31,9 +33,15 @@ $korisnici = Korisnik::getAll();
             var ime_prezime = red.find('td')[1].innerHTML;
             var korisnicko_ime = red.find('td')[2].innerHTML;
             var email = red.find('td')[3].innerHTML;
-            var tip_korisnika = red.find('td')[6].innerHTML;
+            var datum_rodjenja = red.find('td')[4].innerHTML;
+            var telefon = red.find('td')[5].innerHTML;
+            var tip_korisnika = red.find('td')[6].getAttribute('data-tip');
+            $('#korisnik_id').val(id);
             $('#ime_prezime').val(ime_prezime);
             $('#korisnicko_ime').val(korisnicko_ime);
+            $('#email').val(email);
+            $('#datum_rodjenja').val(datum_rodjenja);
+            $('#telefon').val(telefon);
             $('#tip_korisnika').val(tip_korisnika);
             $('form').attr('action', '../logika/izmeniKorisnika.php');
         });
@@ -48,7 +56,12 @@ $korisnici = Korisnik::getAll();
     <input type="password" name="lozinka" id="lozinka" placeholder="Lozinka"><br>
     <input type="date" name="datum_rodjenja" id="datum_rodjenja" placeholder="Unesite datum rodjenja"><br>
     <input type="text" name="telefon" id="telefon" placeholder="Broj telefona"><br>
-    <input type="text" name="tip_korisnika" id="tip_korisnika" placeholder="Unesite tip korisnika"><br>
+    <select name="tip_korisnika" id="tip_korisnika">
+        <?php foreach($tipovi as $tip): ?>
+            <option value="<?= $tip->id?>"><?= $tip->naziv_tipa ?></option>
+        <?php endforeach ?>
+    </select>
+    <!-- <input type="text" name="tip_korisnika" id="tip_korisnika" placeholder="Unesite tip korisnika"><br> -->
     <input type="hidden" name="korisnik_id" id="korisnik_id">
     <input type="submit" value="Snimi">
 </form>
@@ -75,7 +88,9 @@ $korisnici = Korisnik::getAll();
                 <td><?= $korisnik->email ?></td>
                 <td><?= $korisnik->datum_rodjenja ?></td>
                 <td><?= $korisnik->telefon ?></td>
-                <td><?= $korisnik->tip_korisnika_id ?></td>
+                <td data-tip="<?= $korisnik->getTipKorisnika()->id ?>">
+                    <?= $korisnik->getTipKorisnika()->naziv_tipa ?>
+                </td>
                 <td><button id="izmeni_<?= $korisnik->id ?>" class="izmena">Izmeni</button></td>
                 <td><button id="obrisi_<?= $korisnik->id ?>" class="obrisi">Obrisi</button></td>
             </tr>

@@ -1,9 +1,9 @@
 <?php
-
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/Database.php';
+require_once __DIR__ . '/Tabela.php';
 
-class TipKorisnika
+class TipKorisnika extends Tabela
 {
     public $id;
     public $naziv_tipa;

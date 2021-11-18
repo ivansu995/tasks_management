@@ -2,8 +2,9 @@
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/Database.php';
 require_once __DIR__ . '/Tabela.php';
+require_once __DIR__ . '/TipKorisnika.php';
 
-class Korisnik
+class Korisnik extends Tabela
 {
     public $id;
     public $ime_prezime;
@@ -15,6 +16,11 @@ class Korisnik
     public $tip_korisnika_id;
     public $link_za_aktivaciju;
     public $aktiviran;
+
+    public function getTipKorisnika()
+    {
+        return TipKorisnika::getById($this->tip_korisnika_id, 'tipovi_korisnika', 'TipKorisnika');
+    }
 
     public static function registracija(
         $ime_prezime,
@@ -74,13 +80,16 @@ class Korisnik
         return $id = $db->lastInsertId();
     }
 
-    public static function getKorisnik()
+    public static function getByTip($tip_korisnika_id)
     {
         $db=Database::getInstance();
 
         $korisnici = $db->select('Korisnik', 
-            'SELECT * FROM korisnici');
-
+            'SELECT * FROM korisnici WHERE tip_korisnika_id = :tip_korisnika_id',
+            [
+                ':tip_korisnika_id' => $tip_korisnika_id,
+            ]
+        );
         return $korisnici;
     }
 
@@ -233,5 +242,61 @@ class Korisnik
         [
             ':id' => $id,
         ]);
+    }
+
+    public static function izmeni($id, $email, $korisnicko_ime, $lozinka, $ime_prezime, $datum_rodjenja, $telefon, $tip_korisnika_id)
+    {
+        $db=Database::getInstance();
+
+        $db->update('Korisnik',
+            'UPDATE korisnici
+            SET email = :email,
+                korisnicko_ime = :korisnicko_ime,
+                lozinka = :lozinka,
+                ime_prezime = :ime_prezime,
+                datum_rodjenja = :datum_rodjenja,
+                telefon = :telefon,
+                tip_korisnika_id = :tip_korisnika_id
+            WHERE id = :id',
+            [
+                ':id' => $id,
+                ':email' => $email,
+                ':korisnicko_ime' => $korisnicko_ime,
+                ':lozinka' => $lozinka,
+                ':ime_prezime' => $ime_prezime,
+                ':datum_rodjenja' => $datum_rodjenja,
+                ':telefon' => $telefon,
+                ':tip_korisnika_id' => $tip_korisnika_id,
+            ]
+        );
+
+        // return self::getById($id, 'korisnici', 'Korisnik');
+    }
+
+    public static function izmeniBezLozinke($id, $email, $korisnicko_ime, $ime_prezime, $datum_rodjenja, $telefon, $tip_korisnika_id)
+    {
+        $db=Database::getInstance();
+
+        $db->update('Korisnik',
+            'UPDATE korisnici
+            SET email = :email,
+                korisnicko_ime = :korisnicko_ime,
+                ime_prezime = :ime_prezime,
+                datum_rodjenja = :datum_rodjenja,
+                telefon = :telefon,
+                tip_korisnika_id = :tip_korisnika_id
+            WHERE id = :id',
+            [
+                ':id' => $id,
+                ':email' => $email,
+                ':korisnicko_ime' => $korisnicko_ime,
+                ':ime_prezime' => $ime_prezime,
+                ':datum_rodjenja' => $datum_rodjenja,
+                ':telefon' => $telefon,
+                ':tip_korisnika_id' => $tip_korisnika_id,
+            ]
+        );
+
+        // return self::getById($id, 'korisnici', 'Korisnik');
     }
 }

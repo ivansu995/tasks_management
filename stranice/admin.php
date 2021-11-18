@@ -33,6 +33,12 @@ if (!isset($_SESSION['korisnik_admin_id'])) {
                     <a href="admin.php?strana=grupeZadataka">Grupe zadataka</a>
                 </li>
                 <li>
+                    <a href="admin.php?strana=zadaci">Zadaci</a>
+                </li>
+                <li>
+                    <a href="admin.php?strana=komentari">Komentari</a>
+                </li>
+                <li>
                     <a href="stranica.php">Obicni korisnici</a>
                 </li>
                 <li>
@@ -46,6 +52,12 @@ if (!isset($_SESSION['korisnik_admin_id'])) {
                 <?php require_once __DIR__ . '/../administracija/tipoviKorisnika.php'; ?> 
             <?php elseif ($_GET['strana'] === 'korisnici'): ?>
                 <?php require_once __DIR__ . '/../administracija/korisnici.php'; ?>    
+            <?php elseif ($_GET['strana'] === 'grupeZadataka'): ?>
+                <?php require_once __DIR__ . '/../administracija/grupeZadataka.php'; ?>        
+            <?php elseif ($_GET['strana'] === 'zadaci'): ?>
+                <?php require_once __DIR__ . '/../administracija/zadaci.php'; ?>        
+            <?php elseif ($_GET['strana'] === 'komentari'): ?>
+                <?php require_once __DIR__ . '/../administracija/komentari.php'; ?>    
             <?php endif ?>     
         <?php endif ?>
     </body>
