@@ -15,12 +15,14 @@ class Prilog extends Tabela
 
     public static function getByIdZadatka($zadatak_id)
     {
-        $zadatak = Zadatak::getById($zadatak_id, 'zadaci', 'Zadatak');
+        $db = Database::getInstance();
         
-        foreach($zadatak as $z){
-            return $z;
-        }
-        return null;
+        return $db->select('Prilog',
+        'SELECT naziv_priloga FROM prilozi WHERE zadatak_id = :zadatak_id',
+        [
+            ':zadatak_id' => $zadatak_id,
+        ]
+        );
     }
 
     // public static function getAll()

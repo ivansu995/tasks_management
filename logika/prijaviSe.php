@@ -25,7 +25,7 @@ if ($korisnik !== null && $korisnik->aktiviran === '1') {
         $_SESSION['korisnik_admin_id'] = $korisnik->id;
         header('Location: ../stranice/admin.php');
         die();
-    } else if ($korisnik->tip_korisnika_id === $rukovodilac->id) { //ako je rukovodilac
+    } else if ($korisnik->tip_korisnika_id === $rukovodilac->id && isset($_POST['rukovodilac_prijava'])) { //ako je rukovodilac
         session_start();
         $_SESSION['korisnik_rukovodilac_id'] = $korisnik->id;
         header('Location: ../stranice/rukovodilac.php');
@@ -34,7 +34,7 @@ if ($korisnik !== null && $korisnik->aktiviran === '1') {
         //ako je obican korisnik
         session_start();
         $_SESSION['korisnik_id'] = $korisnik->id;
-        header('Location: ../stranice/stranica.php');
+        header('Location: ../stranice/index.php');
         die();
         // echo json_encode($korisnik);
     }

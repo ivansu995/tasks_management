@@ -14,6 +14,8 @@ class Zadatak extends Tabela
     public $kraj_zadatka;
     public $rukovodilac_id;
     public $grupa_zadatka_id;
+    public $zavrsen;
+    public $otkazan;
 
     public function dateTimeFormat()
     {
@@ -54,8 +56,32 @@ class Zadatak extends Tabela
         return $db->select('Zadatak',
         'SELECT * FROM zadaci');
     }
+    
+    public static function pretraziZadatak($naslov, $prioritet, $rukovodilac_id, $pocetak_zadatka, $kraj_zadatka)
+    {
+        $db = Database::getInstance();
 
-    public static function snimi($naslov, $opis, $prioritet, $pocetak_zadatka, $kraj_zadatka, $rukovodilac_id, $grupa_zadatka_id)
+        return $db->select('Zadatak',
+            'SELECT * FROM zadaci WHERE naslov LIKE :naslov OR prioritet = :prioritet OR rukovodilac_id = :rukovodilac_id
+            OR pocetak_zadatka >= :pocetak_zadatka AND kraj_zadatka <= :kraj_zadatka', 
+            [
+                ':naslov' => $naslov,
+                ':prioritet' => $prioritet,
+                ':rukovodilac_id' => $rukovodilac_id,
+                ':pocetak_zadatka' => $pocetak_zadatka,
+                ':kraj_zadatka' => $kraj_zadatka,
+            ]
+        );
+
+        // foreach($zadaci as $z){
+        //     return $z;
+        // }
+        // return null;
+
+    }
+
+    public static function snimi($naslov, $opis, $prioritet, $pocetak_zadatka, $kraj_zadatka, 
+                            $rukovodilac_id, $grupa_zadatka_id, $zavrsen, $otkazan)
     {
         $db = Database::getInstance();
         try {
@@ -67,7 +93,9 @@ class Zadatak extends Tabela
                     pocetak_zadatka,
                     kraj_zadatka,
                     rukovodilac_id,
-                    grupa_zadatka_id
+                    grupa_zadatka_id,
+                    zavrsen,
+                    otkazan
                 )
                 VALUES (
                     :naslov,
@@ -76,7 +104,9 @@ class Zadatak extends Tabela
                     :pocetak_zadatka,
                     :kraj_zadatka,
                     :rukovodilac_id,
-                    :grupa_zadatka_id
+                    :grupa_zadatka_id,
+                    :zavrsen,
+                    :otkazan
                 )',
                 [
                     ':naslov' => $naslov,
@@ -85,7 +115,9 @@ class Zadatak extends Tabela
                     ':pocetak_zadatka' => $pocetak_zadatka,
                     ':kraj_zadatka' => $kraj_zadatka,
                     ':rukovodilac_id' => $rukovodilac_id,
-                    ':grupa_zadatka_id' => $grupa_zadatka_id
+                    ':grupa_zadatka_id' => $grupa_zadatka_id,
+                    ':zavrsen' => $zavrsen,
+                    ':otkazan' => $otkazan
                 ]
             );
         } catch (Exception $e) {
@@ -94,16 +126,16 @@ class Zadatak extends Tabela
         }
         return $id = $db->lastInsertId();
 
-        $zadaci = $db->select('Zadatak',
-            'SELECT * FROM zadaci WHERE id = :id',
-            [
-                ':id' => $id,
-            ]
-        );
-        foreach($zadaci as $zadatak) {
-            return $zadatak;
-        }
-        return null;
+        // $zadaci = $db->select('Zadatak',
+        //     'SELECT * FROM zadaci WHERE id = :id',
+        //     [
+        //         ':id' => $id,
+        //     ]
+        // );
+        // foreach($zadaci as $zadatak) {
+        //     return $zadatak;
+        // }
+        // return null;
     }
     
     public static function obrisi($id)
@@ -117,7 +149,8 @@ class Zadatak extends Tabela
         );
     }
 
-    public static function izmeni($id, $naslov, $opis, $prioritet, $pocetak_zadatka, $kraj_zadatka, $rukovodilac_id, $grupa_zadatka_id)
+    public static function izmeni($id, $naslov, $opis, $prioritet, $pocetak_zadatka, 
+                            $kraj_zadatka, $rukovodilac_id, $grupa_zadatka_id, $zavrsen, $otkazan)
     {
         $db=Database::getInstance();
 
@@ -129,7 +162,9 @@ class Zadatak extends Tabela
                 pocetak_zadatka = :pocetak_zadatka,
                 kraj_zadatka = :kraj_zadatka,
                 rukovodilac_id = :rukovodilac_id,
-                grupa_zadatka_id = :grupa_zadatka_id
+                grupa_zadatka_id = :grupa_zadatka_id,
+                zavrsen = :zavrsen,
+                otkazan = :otkazan
             WHERE id = :id',
             [
                 ':id' => $id,
@@ -139,7 +174,9 @@ class Zadatak extends Tabela
                 ':pocetak_zadatka' => $pocetak_zadatka,
                 ':kraj_zadatka' => $kraj_zadatka,
                 ':rukovodilac_id' => $rukovodilac_id,
-                ':grupa_zadatka_id' => $grupa_zadatka_id
+                ':grupa_zadatka_id' => $grupa_zadatka_id,
+                ':zavrsen' => $zavrsen,
+                ':otkazan' => $otkazan
             ]
         );
 

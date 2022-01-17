@@ -43,7 +43,7 @@ $korisnici = Korisnik::getAll();
     })
 </script>
 
-<h2>Uloge korisnika</h2>
+<h2>Komentari</h2>
 <form action="../logika/dodajKomentar.php" method="post">
     <input type="text" name="opis_komentara" id="opis_komentara" placeholder="Unesite komentar"><br>
     <select name="zadatak_id" id="zadatak_id">

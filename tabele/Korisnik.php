@@ -196,6 +196,23 @@ class Korisnik extends Tabela
         return null;
     }
 
+    public static function getKorisnikByName($ime_prezime)
+    {
+        $db=Database::getInstance();
+
+        $korisnik = $db->select('Korisnik', 
+            'SELECT id FROM korisnici
+            WHERE ime_prezime = :ime_prezime',
+            [
+                ':ime_prezime'=>$ime_prezime
+            ]
+        );
+        foreach($korisnik as $k){
+            return $k;
+        }
+        return null;
+    }
+
     public static function pronadjiNalogZaAktivaciju($link_za_aktivaciju) 
     {
         $db=Database::getInstance();
@@ -204,7 +221,7 @@ class Korisnik extends Tabela
             'Korisnik',
             'SELECT link_za_aktivaciju, aktiviran 
             FROM korisnici 
-            WHERE aktiviran = 0 AND link_za_aktivaciju=:link_za_aktivaciju LIMIT 1',
+            WHERE aktiviran = 0 AND link_za_aktivaciju = :link_za_aktivaciju LIMIT 1',
             [
                 'link_za_aktivaciju' => $link_za_aktivaciju,
             ]

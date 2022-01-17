@@ -9,6 +9,7 @@ class Komentar extends Tabela
     public $opis_komentara;
     public $zadatak_id;
     public $korisnik_id;
+    public $kreiran;
 
     public function getKorisnik()
     {
@@ -29,12 +30,24 @@ class Komentar extends Tabela
         'SELECT * FROM komentari');  
     }
 
+    public static function getKomentarByZadatakId($zadatak_id)
+    {
+        $db = Database::getInstance();
+        
+        return $db->select('Komentar',
+        'SELECT * FROM komentari WHERE zadatak_id = :zadatak_id ORDER BY kreiran DESC',
+        [
+            ':zadatak_id' => $zadatak_id,
+        ]); 
+    }
+
     public static function snimi($opis_komentara, $zadatak_id, $korisnik_id)
     {
         $db = Database::getInstance();
 
         $id = $db->insert('Komentar',
-            'INSERT INTO komentari (opis_komentara, zadatak_id, korisnik_id) VALUES (:opis_komentara, :zadatak_id, :korisnik_id)',
+            'INSERT INTO komentari (opis_komentara, zadatak_id, korisnik_id) 
+            VALUES (:opis_komentara, :zadatak_id, :korisnik_id)',
             [
                 ':opis_komentara' => $opis_komentara,
                 ':zadatak_id' => $zadatak_id,
@@ -78,5 +91,36 @@ class Komentar extends Tabela
                 ':opis_komentara' => $opis_komentara,
             ]
         );
+    }
+
+    public static function snimiKomentar($opis_komentara, $zadatak_id, $korisnik_id)
+    {
+        $db = Database::getInstance();
+
+        $db->insert('Komentar',
+            'INSERT INTO komentari (opis_komentara, zadatak_id, korisnik_id) 
+            VALUES (:opis_komentara, :zadatak_id, :korisnik_id)',
+            [
+                ':opis_komentara' => $opis_komentara,
+                ':zadatak_id' => $zadatak_id,
+                ':korisnik_id' => $korisnik_id
+            ]
+        );
+        return $id = $db->lastInsertId();
+    }
+
+    public static function getKomentarById($id) {
+        $db = Database::getInstance();
+        
+        $komentari = $db->select('Komentar',
+            'SELECT * FROM komentari WHERE id = :id',
+            [
+                ':id' => $id,
+            ]
+        );
+        foreach($komentari as $komentar) {
+            return $komentar;
+        }
+        return null;
     }
 }
