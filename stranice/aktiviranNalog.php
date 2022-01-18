@@ -25,24 +25,26 @@ if (isset($_GET['greska_mail'])) {
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
- 
+        <link rel="stylesheet" href="../forme.css">
     </head>
     <body>
-
-        <form method="post" action="../logika/slanjePorukeZaAktiviranjeNaloga.php" id="aktivacija_naloga">
-
-            <label for="email">Unesite mail sa kojim ste se registrovali</label>
-            <input type="text" name="email" placeholder="Unesite e-mail adresu"><br>
-
-            <br>
-
-            <button id="posalji_mail"> Posalji mail </button>
-
-            <br>
-            <p>
-                <?= $error ?>
-            </p>
-        </form>
+        <div class="container login-container">
+            <div class="row">
+                <div class="col-md-6 login-form-1">
+                    <h3>Aktiviraj nalog</h3>
+                    <form method="post" action="../logika/slanjePorukeZaAktiviranjeNaloga.php">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="email" placeholder="Unesite e-mail adresu">
+                        </div>
+                        <div class="form-group">
+                        <button class="btnSubmit"> Posalji mail </button>
+                        </div>
+                        <p>
+                            <?= $error ?>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

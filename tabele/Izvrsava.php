@@ -70,4 +70,30 @@ class Izvrsava extends Tabela
             ]
         );
     }
+
+    public static function ukupnoIzvrsiocaPoZadatku($zadatak_id)
+    {
+        $db = Database::getInstance();
+
+        return $db->select('Izvrsava',
+                'SELECT * FROM izvrsava WHERE zadatak_id = :zadatak_id',
+            [
+                ':zadatak_id' => $zadatak_id
+            ]
+        );
+    }
+
+    public static function korisniciKojiNisuZavrsiliZadatak($zadatak_id, $izvrsio)
+    {
+        $db = Database::getInstance();
+
+        return $db->select('Izvrsava',
+            'SELECT * FROM izvrsava 
+            WHERE zadatak_id = :zadatak_id AND izvrsio = :izvrsio',
+            [
+                ':zadatak_id' => $zadatak_id,
+                ':izvrsio' => $izvrsio
+            ]
+        );
+    }
 }

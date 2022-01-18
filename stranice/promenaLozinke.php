@@ -29,22 +29,50 @@ if (isset($_GET['greska_link'])) {
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="../forme.css">
     </head>
     <body>
-        <form action='../logika/promeniLozinku.php' method='post' id="lozinka_forma">
-            <input type="hidden" name="token" value="<?php echo $token; ?>" >
-            <input type="password" name="nova_lozinka" placeholder="Unesite novu lozinku"><br>
-            <input type="password" name="ponovi_novu_lozinku" placeholder="Unesite ponovo novu lozinku"><br>
-            <input type="submit" name="resetuj_lozinku" value="Promeni lozinku"><br>
-
-            <p>
-                <?= $error ?>
-            </p>
-
-            <hr>
-            <a href="prijava.php">Prijavi se</a><br>
-            <a href="registracija.php">Registruj se</a><br>
-        </form>
+        <div class="container login-container">
+            <div class="row">
+                <div class="col-md-6 login-form-1">
+                    <h3>Promeni lozinku</h3>
+                    <form action='../logika/promeniLozinku.php' method='post'>
+                        <!-- TOKEN HIDDEN -->
+                        <input type="hidden" name="token" value="<?php echo $token; ?>" >
+                        <div class="form-group">
+                            <input type="password" 
+                                class="form-control" 
+                                name="nova_lozinka" 
+                                placeholder="Unesite novu lozinku">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" 
+                                class="form-control"
+                                name="ponovi_novu_lozinku" 
+                                placeholder="Unesite ponovo novu lozinku">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" 
+                                class="btnSubmit"
+                                name="resetuj_lozinku" 
+                                value="Promeni lozinku">
+                        </div>
+                        <div class="form-group">
+                            <a href="./prijava.php" class="ForgetPwd">
+                                Prijavi se
+                            </a>
+                            <br>
+                            <a href="./registracija.php" class="ForgetPwd">
+                                Registruj se
+                            </a>
+                            <br>
+                        </div>
+                        <p>
+                            <?= $error ?>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../tabele/Komentar.php';
 
 session_start();
-if (!isset($_SESSION['korisnik_rukovodilac_id'])) {
+if (!isset($_SESSION['korisnik_rukovodilac_id']) && !isset($_SESSION['korisnik_id'])) {
     header('Location: ../stranice/prijava.php');
     die();
 }
@@ -16,4 +16,6 @@ if ($id > 0) {
     $komentar = Komentar::getKomentarById($id);
     $komentar->korisnik = $komentar->getKorisnik();
     echo json_encode($komentar);
+} else {
+    echo "Doslo je do greske!";
 }

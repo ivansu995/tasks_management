@@ -201,8 +201,8 @@ $izvrsioci = Izvrsava::getAll();
                         <td><button id="izmeni_<?= $z->id ?>" class="izmena">Izmeni</button></td>
                         <td><button id="obrisi_<?= $z->id ?>" class="obrisi">Obrisi</button></td>
                         <td>
-                            <button id="otvori_<?= $zadatak->id ?>" 
-                                onclick="location.href='./rukovodilac.php?strana=zadatak&id=<?= $zadatak->id ?>'">
+                            <button id="otvori_<?= $z->id ?>" 
+                                onclick="location.href='./rukovodilac.php?strana=zadatak&id=<?= $z->id ?>'">
                                     Otvori
                             </button>
                         </td>

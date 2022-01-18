@@ -57,6 +57,25 @@ class Zadatak extends Tabela
         'SELECT * FROM zadaci');
     }
     
+    public static function pretraziZadatakKorisnik($rukovodilac_id, $kraj_zadatka)
+    {
+        $db = Database::getInstance();
+
+        return $db->select('Zadatak',
+            'SELECT * FROM zadaci WHERE rukovodilac_id = :rukovodilac_id
+            OR kraj_zadatka = :kraj_zadatka', 
+            [
+                ':rukovodilac_id' => $rukovodilac_id,
+                ':kraj_zadatka' => $kraj_zadatka,
+            ]
+        );
+
+        // foreach($zadaci as $z){
+        //     return $z;
+        // }
+        // return null;
+
+    }
     public static function pretraziZadatak($naslov, $prioritet, $rukovodilac_id, $pocetak_zadatka, $kraj_zadatka)
     {
         $db = Database::getInstance();

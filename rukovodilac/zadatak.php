@@ -4,11 +4,10 @@ require_once __DIR__ . '/../tabele/Komentar.php';
 require_once __DIR__ . '/../tabele/Izvrsava.php';
 
 // session_start();
-// if(!isset($_SESSION['korisnik_id']) && !isset($_SESSION['korisnik_admin_id']) &&
-//     !isset($_GET['id'])) {
-//         header('Location: prijava.php');
-//         die();
-// }
+if(!isset($_SESSION['korisnik_rukovodilac_id'])) {
+        header('Location: prijava.php');
+        die();
+}
 // var_dump($_GET['id']);
 // die();
 
