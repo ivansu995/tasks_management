@@ -96,4 +96,37 @@ class Izvrsava extends Tabela
             ]
         );
     }
+
+    public static function zavrsiZadatak($korisnik_id, $zadatak_id)
+    {
+        $db = Database::getInstance();
+
+        $db->update('Izvrsava',
+            'UPDATE izvrsava
+            SET izvrsio = 1
+            WHERE korisnik_id = :korisnik_id AND zadatak_id = :zadatak_id',
+            [
+                ':korisnik_id' => $korisnik_id,
+                ':zadatak_id' => $zadatak_id,
+            ]
+        );
+    }
+
+    public static function proveriDaLiJeIzvrsen($korisnik_id, $zadatak_id)
+    {
+        $db = Database::getInstance();
+
+        $izvrsava = $db->select('Izvrsava',
+            'SELECT * FROM izvrsava 
+            WHERE zadatak_id = :zadatak_id AND korisnik_id = :korisnik_id',
+            [
+                ':zadatak_id' => $zadatak_id,
+                ':korisnik_id' => $korisnik_id
+            ]
+        );
+        foreach ($izvrsava as $i) {
+            return $i;
+        }
+        return null;
+    }
 }

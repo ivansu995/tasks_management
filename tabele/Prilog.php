@@ -5,7 +5,7 @@ require_once __DIR__ . '/Zadatak.php';
 class Prilog extends Tabela
 {
     public $id;
-    public $naziv;
+    public $naziv_priloga;
     public $zadatak_id;
 
     public function getZadatak()
@@ -18,43 +18,47 @@ class Prilog extends Tabela
         $db = Database::getInstance();
         
         return $db->select('Prilog',
-        'SELECT naziv_priloga FROM prilozi WHERE zadatak_id = :zadatak_id',
+        'SELECT * FROM prilozi WHERE zadatak_id = :zadatak_id',
         [
             ':zadatak_id' => $zadatak_id,
         ]
         );
+
+
     }
 
-    // public static function getAll()
-    // {
-    //     $db = Database::getInstance();
+    public static function getAll()
+    {
+        $db = Database::getInstance();
         
-    //     return $db->select('GrupaZadataka',
-    //     'SELECT * FROM grupe_zadataka');  
-    // }
+        return $db->select('Prilog',
+        'SELECT * FROM prilozi');  
+    }
 
-    // public static function snimi($naziv)
-    // {
-    //     $db = Database::getInstance();
+    public static function dodaj($naziv_priloga, $zadatak_id)
+    {
+        $db = Database::getInstance();
 
-    //     $id = $db->insert('GrupaZadataka',
-    //         'INSERT INTO grupe_zadataka (naziv) VALUES (:naziv)',
-    //         [
-    //             ':naziv' => $naziv,
-    //         ]
-    //     );
+        $id = $db->insert('Prilog',
+            'INSERT INTO prilozi (naziv_priloga, zadatak_id) 
+            VALUES (:naziv_priloga, :zadatak_id)',
+            [
+                ':naziv_priloga' => $naziv_priloga,
+                ':zadatak_id' => $zadatak_id
+            ]
+        );
 
-    //     $grupeZadataka = $db->select('GrupaZadataka',
-    //         'SELECT * FROM grupe_zadataka WHERE id = :id',
-    //         [
-    //             ':id' => $id,
-    //         ]
-    //     );
-    //     foreach($grupeZadataka as $grupa) {
-    //         return $grupa;
-    //     }
-    //     return null;
-    // }
+        $prilozi = $db->select('Prilog',
+            'SELECT * FROM prilozi WHERE id = :id',
+            [
+                ':id' => $id,
+            ]
+        );
+        foreach ($prilozi as $prilog) {
+            return $prilog;
+        }
+        return null;
+    }
     
     // public static function obrisi($id)
     // {

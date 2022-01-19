@@ -10,6 +10,7 @@ if(!isset($_SESSION['korisnik_rukovodilac_id'])) {
 }
 // var_dump($_GET['id']);
 // die();
+$prilozi = Prilog::getByIdZadatka($_GET['id']);
 
 $zadatak = Zadatak::getById($_GET['id'], 'zadaci', 'Zadatak');
 $komentari = Komentar::getKomentarByZadatakId($_GET['id']);

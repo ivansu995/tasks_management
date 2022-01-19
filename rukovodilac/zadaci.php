@@ -12,9 +12,9 @@ $tip_korisnika = TipKorisnika::getByName("izvrsilac");
 $obicni_korsinici = Korisnik::getByTip($tip_korisnika->id);
 $korisnici = Korisnik::getByTip(2); //vraca korisnike koji su rukovodioci
 $grupe_zadataka = GrupaZadataka::getAll();
-foreach($zadaci as $zadatak) {
-    $prilozi = Prilog::getByIdZadatka($zadatak->id);
-}
+
+$prilozi = Prilog::getAll();
+
 $izvrsioci = Izvrsava::getAll();
 ?>
 
@@ -72,7 +72,11 @@ $izvrsioci = Izvrsava::getAll();
 </script>
 
 <h2>Zadaci</h2>
-<form action="../logika/dodajZadatak.php" method="post" id="prva_forma">
+<form action="../logika/dodajZadatak.php"
+    method="post" 
+    id="prva_forma" 
+    enctype="multipart/form-data">
+
     <input type="text" name="naslov" id="naslov" maxlength="191" placeholder="Unesite naslov"><br>
     <textarea name="opis" id="opis" placeholder="Unesti opis zadatka"></textarea><br>
     <select name="prioritet" id="prioritet">
@@ -82,7 +86,12 @@ $izvrsioci = Izvrsava::getAll();
     </select><br>
     <input type="date" name="pocetak_zadatka" id="pocetak_zadatka"><br>
     <input type="date" name="kraj_zadatka" id="kraj_zadatka"><br>
-    <input type="file" name="prilog" id="prilog" placeholder="Dodaj fajl"><br>
+    <label for="prilog">Izaberite fajlove:</label>
+    <input type="file" name="prilog[]" 
+        id="prilog" 
+        placeholder="Dodaj fajl"
+        accept="image/jpeg,image/png,image/gif"
+        multiple><br>
     <select name="izvrsioci[]" multiple="multiple" id="izvrsoci">
         <?php foreach($obicni_korsinici as $korisnik): ?>
             <option value="<?= $korisnik->id?>"><?= $korisnik->ime_prezime?></option>
@@ -220,9 +229,12 @@ $izvrsioci = Izvrsava::getAll();
                 <td><?= $zadatak->pocetak_zadatka ?></td>
                 <td><?= $zadatak->kraj_zadatka ?></td>
                 <td>
-                    <?php foreach($prilozi as $p): ?>
+                    <?php $prilozi_zadatka = Prilog::getByIdZadatka($zadatak->id); ?>
+                    <?php foreach($prilozi_zadatka as $p): ?>
                         <?php if($zadatak->id === $p->zadatak_id): ?>
-                            <?= $p->naziv_priloga ?>
+                            <a href="../<?= $p->naziv_priloga ?>">
+                                <?= $p->naziv_priloga ?>
+                            </a>
                         <?php endif ?>
                     <?php endforeach ?>
                 </td>

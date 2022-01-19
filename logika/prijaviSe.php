@@ -25,7 +25,9 @@ if ($korisnik !== null && $korisnik->aktiviran === '1') {
         $_SESSION['korisnik_admin_id'] = $korisnik->id;
         header('Location: ../stranice/admin.php');
         die();
-    } else if ($korisnik->tip_korisnika_id === $rukovodilac->id && isset($_POST['rukovodilac_prijava'])) { //ako je rukovodilac
+    } elseif ($korisnik->tip_korisnika_id === $rukovodilac->id && 
+            isset($_POST['rukovodilac_prijava'])) { 
+        //ako je rukovodilac
         session_start();
         $_SESSION['korisnik_rukovodilac_id'] = $korisnik->id;
         header('Location: ../stranice/rukovodilac.php');
@@ -38,7 +40,7 @@ if ($korisnik !== null && $korisnik->aktiviran === '1') {
         die();
         // echo json_encode($korisnik);
     }
-} else if ($korisnik !== null && $korisnik->aktiviran === '0') {
+} elseif ($korisnik !== null && $korisnik->aktiviran === '0') {
     echo "Vas nalog nije aktiviran. Molimo Vas aktivirajte nalog preko linka u email-u!";
 } else {
     header('Location: ../stranice/prijava.php?greska=podaci');
