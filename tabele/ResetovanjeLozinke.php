@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/Database.php';
 require_once __DIR__ . '/Tabela.php';
@@ -10,7 +11,8 @@ class ResetovanjeLozinke
     public $token;
     public $istice;
 
-    public static function ubaciToken($email, $token, $istice) {
+    public static function ubaciToken($email, $token, $istice)
+    {
         
         $db = Database::getInstance();
 
@@ -61,7 +63,7 @@ class ResetovanjeLozinke
             ]
         );
 
-        foreach($rezultati as $rezultat) {
+        foreach ($rezultati as $rezultat) {
             return $rezultat;
         }
         return null;

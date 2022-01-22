@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../tabele/Korisnik.php';
 
 session_start();
@@ -18,9 +19,11 @@ $tip_korisnika_id = $_POST['tip_korisnika'];
 
 if (!empty($lozinka)) {
     $lozinka = hash('sha512', $lozinka);
-    Korisnik::izmeni($id, $email, $korisnicko_ime, $lozinka, $ime_prezime, $datum_rodjenja, $telefon, $tip_korisnika_id);
+    Korisnik::izmeni($id, $email, $korisnicko_ime, $lozinka, $ime_prezime,
+        $datum_rodjenja, $telefon, $tip_korisnika_id);
 } else {
-    Korisnik::izmeniBezLozinke($id, $email, $korisnicko_ime, $ime_prezime, $datum_rodjenja, $telefon, $tip_korisnika_id);
+    Korisnik::izmeniBezLozinke($id, $email, $korisnicko_ime, $ime_prezime,
+        $datum_rodjenja, $telefon, $tip_korisnika_id);
 }
 
 header('Location: ../stranice/admin.php?strana=korisnici');

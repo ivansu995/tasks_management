@@ -1,10 +1,12 @@
 <?php
+
 require_once __DIR__ . '/../tabele/Zadatak.php';
 require_once __DIR__ . '/../tabele/Izvrsava.php';
 require_once __DIR__ . '/../includes/Upload.php';
 
 session_start();
-if (!isset($_SESSION['korisnik_admin_id']) && !isset($_SESSION['korisnik_rukovodilac_id'])) {
+if (!isset($_SESSION['korisnik_admin_id']) &&
+    !isset($_SESSION['korisnik_rukovodilac_id'])) {
     header('Location: ../stranice/prijava.php');
     die();
 }
@@ -13,7 +15,6 @@ if (!isset($_SESSION['korisnik_admin_id']) && !isset($_SESSION['korisnik_rukovod
 //zbog lakseg pristupa 
 function reArrayFiles(&$file_post) 
 {
-
     $file_ary = array();
     $file_count = count($file_post['name']);
     $file_keys = array_keys($file_post);
@@ -50,7 +51,7 @@ $id = Zadatak::snimi(
     $otkazan
 );
 
-foreach($_POST['izvrsioci'] as $izvrsilac){
+foreach ($_POST['izvrsioci'] as $izvrsilac){
     Izvrsava::dodaj($izvrsilac, $id);
 }
 
@@ -72,12 +73,9 @@ if (!empty($_FILES['prilog'])) {
 }
 
 if (isset($_SESSION['korisnik_admin_id'])) {
-
     header('Location: ../stranice/admin.php?strana=zadaci');
     die();
-
 } else if (isset($_SESSION['korisnik_rukovodilac_id'])) {
-    
     header('Location: ../stranice/rukovodilac.php?strana=zadaci');
     die();
 }

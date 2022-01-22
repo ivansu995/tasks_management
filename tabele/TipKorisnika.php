@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/Database.php';
 require_once __DIR__ . '/Tabela.php';
@@ -12,13 +13,14 @@ class TipKorisnika extends Tabela
     {
         $db = Database::getInstance();
 
-        $tipovi = $db->select('TipKorisnika', 
-            'SELECT * FROM tipovi_korisnika WHERE naziv_tipa = :naziv_tipa',
+        $tipovi = $db->select('TipKorisnika',
+            'SELECT * FROM tipovi_korisnika
+            WHERE naziv_tipa = :naziv_tipa'
             [
                 ':naziv_tipa' => $naziv_tipa,
             ]);
 
-        foreach($tipovi as $tip) {
+        foreach ($tipovi as $tip) {
             return $tip;
         }
         return null;
@@ -37,7 +39,8 @@ class TipKorisnika extends Tabela
         $db = Database::getInstance();
 
         $id = $db->insert('TipKorisnika',
-            'INSERT INTO tipovi_korisnika (naziv_tipa) VALUES (:naziv)',
+            'INSERT INTO tipovi_korisnika (naziv_tipa)
+            VALUES (:naziv)',
             [
                 ':naziv' => $naziv,
             ]
@@ -49,7 +52,7 @@ class TipKorisnika extends Tabela
                 ':id' => $id,
             ]
         );
-        foreach($tipovi as $tip) {
+        foreach ($tipovi as $tip) {
             return $tip;
         }
         return null;

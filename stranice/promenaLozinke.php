@@ -1,4 +1,5 @@
 <?php
+
 if(isset($_GET['key'])) {
     $token = $_GET['key'];
 }
@@ -12,11 +13,9 @@ if (isset($_GET['greska_link'])) {
 } else if (isset($_GET['greska'])) {
     $error = "Doslo je do greske prilikom promene lozinke!";
 } else if (isset($_GET['istekao_token'])) {
-    $error = "Link za resetovanje lozinke nije vazeci. Molimo posaljite zahtev za resetovanje lozinke ponovo!";
+    $error = "Link za resetovanje lozinke nije vazeci." . 
+    " Molimo posaljite zahtev za resetovanje lozinke ponovo!";
 }
-
-// var_dump($token);
-// die();
     
 ?>
 
@@ -28,7 +27,10 @@ if (isset($_GET['greska_link'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+            crossorigin="anonymous">
         <link rel="stylesheet" href="../stilovi/forme.css">
     </head>
     <body>
@@ -38,7 +40,8 @@ if (isset($_GET['greska_link'])) {
                     <h3>Promeni lozinku</h3>
                     <form action='../logika/promeniLozinku.php' method='post'>
                         <!-- TOKEN HIDDEN -->
-                        <input type="hidden" name="token" value="<?php echo $token; ?>" >
+                        <input type="hidden" name="token"
+                            value="<?php echo $token; ?>">
                         <div class="form-group">
                             <input type="password" 
                                 class="form-control" 

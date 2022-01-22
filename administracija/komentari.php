@@ -1,7 +1,9 @@
 <?php
+
 require_once __DIR__ . '/../tabele/Komentar.php';
 require_once __DIR__ . '/../tabele/Zadatak.php';
 require_once __DIR__ . '/../tabele/Korisnik.php';
+
 $komentari = Komentar::getAll();
 $zadaci = Zadatak::getAll();
 $korisnici = Korisnik::getAll();
@@ -68,7 +70,9 @@ $korisnici = Korisnik::getAll();
                         id="zadatak_id"
                         class="form-control">
                         <?php foreach ($zadaci as $zadatak): ?>
-                            <option value="<?= $zadatak->id?>"><?= $zadatak->naslov ?></option>
+                            <option value="<?= $zadatak->id?>">
+                                <?= $zadatak->naslov ?>          
+                            </option>
                         <?php endforeach ?>
                     </select>
                 </div>
@@ -81,7 +85,9 @@ $korisnici = Korisnik::getAll();
                         id="korisnik_id"
                         class="form-control">
                         <?php foreach ($korisnici as $korisnik): ?>
-                            <option value="<?= $korisnik->id?>"><?= $korisnik->ime_prezime ?></option>
+                            <option value="<?= $korisnik->id?>">
+                                <?= $korisnik->ime_prezime ?>
+                            </option>
                         <?php endforeach ?>
                     </select>
                 </div>
@@ -108,18 +114,32 @@ $korisnici = Korisnik::getAll();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($komentari as $komentar): ?> 
+                    <?php foreach ($komentari as $komentar): ?> 
                         <tr>
-                            <td><?= $komentar->id ?></td>
-                            <td><?= $komentar->opis_komentara ?></td>
+                            <td>
+                                <?= $komentar->id ?> 
+                            </td>
+                            <td>
+                                <?= $komentar->opis_komentara ?>       
+                            </td>
                             <td data-zadatak="<?= $komentar->getZadatak()->id ?>">
                                 <?= $komentar->getZadatak()->naslov ?>
                             </td>
                             <td data-korisnik="<?= $komentar->getKorisnik()->id ?>">
                                 <?= $komentar->getKorisnik()->ime_prezime ?>
                             </td>
-                            <td><button id="izmeni_<?= $komentar->id ?>" class="izmena">Izmeni</button></td>
-                            <td><button id="obrisi_<?= $komentar->id ?>" class="obrisi">Obrisi</button></td>
+                            <td>
+                                <button id="izmeni_<?= $komentar->id ?>"
+                                    class="izmena">
+                                    Izmeni
+                                </button>
+                            </td>
+                            <td>
+                                <button id="obrisi_<?= $komentar->id ?>"
+                                    class="obrisi">
+                                    Obrisi
+                                </button>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

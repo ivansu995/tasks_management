@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/Database.php';
 
@@ -15,7 +16,7 @@ class Tabela
         ];
 
         $zapisi = $db->select($ime_klase, $query, $params);
-        foreach($zapisi as $zapis)
+        foreach ($zapisi as $zapis)
         {
             return $zapis;
         }

@@ -1,11 +1,13 @@
 <?php
+
+require_once __DIR__ . '/../tabele/GrupaZadataka.php';
+
 session_start();
-if (!isset($_SESSION['korisnik_admin_id']) && !isset($_SESSION['korisnik_rukovodilac_id'])) {
+if (!isset($_SESSION['korisnik_admin_id']) &&
+    !isset($_SESSION['korisnik_rukovodilac_id'])) {
     header('Location: prijava.php');
     die();
 }
-
-require_once __DIR__ . '/../tabele/GrupaZadataka.php';
 
 try {
     GrupaZadataka::obrisi($_POST['id']);

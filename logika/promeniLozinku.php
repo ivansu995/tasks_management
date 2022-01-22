@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../tabele/Korisnik.php';
 require_once __DIR__ . '/../stranice/promenaLozinke.php';
 require_once __DIR__ . '/../tabele/ResetovanjeLozinke.php';
@@ -19,12 +20,7 @@ if (isset($_POST['resetuj_lozinku'])) {
             header('Location: ../stranice/promenaLozinke.php?istekao_token=1');
             die();
         } else {
-
-            var_dump($rezultat);
-    
             $email = $rezultat->email;
-            var_dump($email);
-    
             $korisnik = Korisnik::proveriMail($email);
     
             if($korisnik !== null) {
@@ -39,4 +35,3 @@ if (isset($_POST['resetuj_lozinku'])) {
         }
     }
 }
-

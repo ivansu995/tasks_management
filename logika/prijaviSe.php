@@ -1,6 +1,8 @@
 <?php
+
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
+
 require_once __DIR__ . '/../tabele/Korisnik.php';
 require_once __DIR__ . '/../tabele/TipKorisnika.php';
 
@@ -20,12 +22,13 @@ $rukovodilac = TipKorisnika::getByName('rukovodilac');
 
 if ($korisnik !== null && $korisnik->aktiviran === '1') {
     //ako je korisnik administrator 
-    if ($korisnik->tip_korisnika_id === $admin->id && isset($_POST['admin_prijava'])) { 
+    if ($korisnik->tip_korisnika_id === $admin->id
+        && isset($_POST['admin_prijava'])) { 
         session_start();
         $_SESSION['korisnik_admin_id'] = $korisnik->id;
         header('Location: ../stranice/admin.php');
         die();
-    } elseif ($korisnik->tip_korisnika_id === $rukovodilac->id && 
+    } elseif ($korisnik->tip_korisnika_id === $rukovodilac->id &&
             isset($_POST['rukovodilac_prijava'])) { 
         //ako je rukovodilac
         session_start();
@@ -46,5 +49,4 @@ if ($korisnik !== null && $korisnik->aktiviran === '1') {
     header('Location: ../stranice/prijava.php?greska=podaci');
     die();
     // return json_encode(['error' => 'Pogresni podaci za prijavu.']);
-
 }

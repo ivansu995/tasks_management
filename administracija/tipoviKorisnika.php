@@ -1,5 +1,7 @@
 <?php
+
 require_once __DIR__ . '/../tabele/TipKorisnika.php';
+
 $tipovi = TipKorisnika::getAll();
 ?>
 
@@ -72,12 +74,26 @@ $tipovi = TipKorisnika::getAll();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($tipovi as $tip): ?> 
+                    <?php foreach ($tipovi as $tip): ?> 
                         <tr>
-                            <td><?= $tip->id ?></td>
-                            <td><?= $tip->naziv_tipa ?></td>
-                            <td><button id="izmeni_<?= $tip->id ?>" class="izmena">Izmeni</button></td>
-                            <td><button id="obrisi_<?= $tip->id ?>" class="obrisi">Obrisi</button></td>
+                            <td>
+                                <?= $tip->id ?>
+                            </td>
+                            <td>
+                                <?= $tip->naziv_tipa ?>
+                            </td>
+                            <td>
+                                <button id="izmeni_<?= $tip->id ?>"
+                                    class="izmena">
+                                    Izmeni
+                                </button>
+                            </td>
+                            <td>
+                                <button id="obrisi_<?= $tip->id ?>"
+                                    class="obrisi">
+                                    Obrisi
+                                </button>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

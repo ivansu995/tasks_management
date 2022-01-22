@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/Tabela.php';
 
 class GrupaZadataka extends Tabela
@@ -31,7 +32,7 @@ class GrupaZadataka extends Tabela
                 ':id' => $id,
             ]
         );
-        foreach($grupeZadataka as $grupa) {
+        foreach ($grupeZadataka as $grupa) {
             return $grupa;
         }
         return null;
@@ -73,7 +74,7 @@ class GrupaZadataka extends Tabela
                 ':naziv' => $naziv,
             ]);
 
-        foreach($grupeZadataka as $grupa) {
+        foreach ($grupeZadataka as $grupa) {
             return $grupa;
         }
         return null;

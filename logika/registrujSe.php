@@ -1,13 +1,15 @@
 <?php
+
 require_once __DIR__ . '/../tabele/Korisnik.php';
 require_once __DIR__ . '/../env.php';
+
 require 'C:\xampp\htdocs\tasks_management\PHPMailer\src\Exception.php';
 require 'C:\xampp\htdocs\tasks_management\PHPMailer\src\PHPMailer.php';
 require 'C:\xampp\htdocs\tasks_management\PHPMailer\src\SMTP.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
-
 
 if (empty($_POST['korisnicko_ime']) ||
     empty($_POST['email']) ||
@@ -66,7 +68,6 @@ try {
     // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
     $mail->Port       = 2525;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
  
-
     //Recipients
     $mail->setFrom('noreply@test.com', 'Administrator', 0);
     $mail->addAddress($email);  
@@ -88,7 +89,6 @@ try {
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
-
 
 if ($korisnik_id !== false) {
     header('Location: ../stranice/registracija.php?uspesna_registracija=1');

@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../tabele/TipKorisnika.php';
 
 session_start();

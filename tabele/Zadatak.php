@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/Tabela.php';
 require_once __DIR__ . '/Korisnik.php';
 require_once __DIR__ . '/GrupaZadataka.php';
@@ -17,11 +18,6 @@ class Zadatak extends Tabela
     public $zavrsen;
     public $otkazan;
 
-    public function dateTimeFormat()
-    {
-        //dodaj formatirani datum i vreme
-    }
-
     public function getKorisnik()
     {
         return Korisnik::getById($this->rukovodilac_id, 'korisnici', 'Korisnik');
@@ -32,23 +28,6 @@ class Zadatak extends Tabela
         return GrupaZadataka::getById($this->grupa_zadatka_id, 'grupe_zadataka', 'GrupaZadataka');
     }
     
-
-    // public static function getByName($naziv_tipa)
-    // {
-    //     $db = Database::getInstance();
-
-    //     $tipovi = $db->select('Zadatak', 
-    //         'SELECT * FROM zadaci WHERE naziv_tipa = :naziv_tipa',
-    //         [
-    //             ':naziv_tipa' => $naziv_tipa,
-    //         ]);
-
-    //     foreach($tipovi as $tip) {
-    //         return $tip;
-    //     }
-    //     return null;
-    // }
-
     public static function getAll()
     {
         $db = Database::getInstance();
@@ -69,20 +48,18 @@ class Zadatak extends Tabela
                 ':kraj_zadatka' => $kraj_zadatka,
             ]
         );
-
-        // foreach($zadaci as $z){
-        //     return $z;
-        // }
-        // return null;
-
     }
-    public static function pretraziZadatak($naslov, $prioritet, $rukovodilac_id, $pocetak_zadatka, $kraj_zadatka)
+
+    public static function pretraziZadatak($naslov, $prioritet, 
+        $rukovodilac_id, $pocetak_zadatka, $kraj_zadatka)
     {
         $db = Database::getInstance();
 
         return $db->select('Zadatak',
-            'SELECT * FROM zadaci WHERE naslov LIKE :naslov OR prioritet = :prioritet OR rukovodilac_id = :rukovodilac_id
-            OR pocetak_zadatka >= :pocetak_zadatka AND kraj_zadatka <= :kraj_zadatka', 
+            'SELECT * FROM zadaci WHERE naslov LIKE :naslov
+            OR prioritet = :prioritet OR rukovodilac_id = :rukovodilac_id
+            OR pocetak_zadatka >= :pocetak_zadatka
+            AND kraj_zadatka <= :kraj_zadatka',
             [
                 ':naslov' => $naslov,
                 ':prioritet' => $prioritet,
@@ -91,16 +68,10 @@ class Zadatak extends Tabela
                 ':kraj_zadatka' => $kraj_zadatka,
             ]
         );
-
-        // foreach($zadaci as $z){
-        //     return $z;
-        // }
-        // return null;
-
     }
 
-    public static function snimi($naslov, $opis, $prioritet, $pocetak_zadatka, $kraj_zadatka, 
-                            $rukovodilac_id, $grupa_zadatka_id, $zavrsen, $otkazan)
+    public static function snimi($naslov, $opis, $prioritet, $pocetak_zadatka,
+        $kraj_zadatka, $rukovodilac_id, $grupa_zadatka_id, $zavrsen, $otkazan)
     {
         $db = Database::getInstance();
         try {
@@ -141,20 +112,8 @@ class Zadatak extends Tabela
             );
         } catch (Exception $e) {
             return $e->getMessage();
-            // return false;
         }
         return $id = $db->lastInsertId();
-
-        // $zadaci = $db->select('Zadatak',
-        //     'SELECT * FROM zadaci WHERE id = :id',
-        //     [
-        //         ':id' => $id,
-        //     ]
-        // );
-        // foreach($zadaci as $zadatak) {
-        //     return $zadatak;
-        // }
-        // return null;
     }
     
     public static function obrisi($id)
@@ -168,8 +127,9 @@ class Zadatak extends Tabela
         );
     }
 
-    public static function izmeni($id, $naslov, $opis, $prioritet, $pocetak_zadatka, 
-                            $kraj_zadatka, $rukovodilac_id, $grupa_zadatka_id, $zavrsen, $otkazan)
+    public static function izmeni($id, $naslov, $opis, $prioritet,
+        $pocetak_zadatka, $kraj_zadatka, $rukovodilac_id, $grupa_zadatka_id,
+        $zavrsen, $otkazan)
     {
         $db=Database::getInstance();
 
@@ -198,7 +158,6 @@ class Zadatak extends Tabela
                 ':otkazan' => $otkazan
             ]
         );
-
     }
 
     public static function zavrsiZadatak($id)

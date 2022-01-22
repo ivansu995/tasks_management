@@ -1,13 +1,15 @@
 <?php
+
 require_once __DIR__ . '/../tabele/Korisnik.php';
 require_once __DIR__ . '/../env.php';
+
 require 'C:\xampp\htdocs\tasks_management\PHPMailer\src\Exception.php';
 require 'C:\xampp\htdocs\tasks_management\PHPMailer\src\PHPMailer.php';
 require 'C:\xampp\htdocs\tasks_management\PHPMailer\src\SMTP.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
-
 
 if (empty($_POST['email'])) {
     header('Location: ../stranice/aktiviranNalog.php?greska_podaci=1');
@@ -15,7 +17,6 @@ if (empty($_POST['email'])) {
 }
 
 $email = $_POST['email'];
-
 $korisnik = Korisnik::proveriMail($email);
 
 if ($korisnik === null) {
@@ -60,7 +61,6 @@ if ($korisnik !== false) {
         $mail->send();
         header('Location: ../stranice/aktiviranNalog.php?poslat_mail=1');
         die();
-        
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }   

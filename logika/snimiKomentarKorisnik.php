@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../tabele/Komentar.php';
 
 session_start();
@@ -14,6 +15,7 @@ $zadatak_id = $_POST['zadatak_id'];
 $korisnik_id = $_POST['korisnik_id'];
 
 $id = Komentar::snimiKomentar($opis_komentara, $zadatak_id, $korisnik_id);
+
 if ($id > 0) {
     $komentar = Komentar::getKomentarById($id);
     $komentar->korisnik = $komentar->getKorisnik();

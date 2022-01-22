@@ -1,11 +1,13 @@
 <?php
+
+require_once __DIR__ . '/../tabele/Komentar.php';
+
 session_start();
-if (!isset($_SESSION['korisnik_admin_id']) && !isset($_SESSION['korisnik_rukovodilac_id'])) {
+if (!isset($_SESSION['korisnik_admin_id']) &&
+    !isset($_SESSION['korisnik_rukovodilac_id'])) {
     header('Location: prijava.php');
     die();
 }
-
-require_once __DIR__ . '/../tabele/Komentar.php';
 
 try {
     Komentar::obrisi($_POST['id']);

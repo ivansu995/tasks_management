@@ -1,6 +1,8 @@
 <?php
+
 require_once __DIR__ . '/../tabele/Korisnik.php';
 require_once __DIR__ . '/../tabele/TipKorisnika.php';
+
 $korisnici = Korisnik::getAll();
 $tipovi = TipKorisnika::getAll();
 ?>
@@ -127,8 +129,10 @@ $tipovi = TipKorisnika::getAll();
                     <select name="tip_korisnika"
                         id="tip_korisnika"
                         class="form-control">
-                        <?php foreach($tipovi as $tip): ?>
-                            <option value="<?= $tip->id?>"><?= $tip->naziv_tipa ?></option>
+                        <?php foreach ($tipovi as $tip): ?>
+                            <option value="<?= $tip->id?>">
+                                <?= $tip->naziv_tipa ?>
+                            </option>
                         <?php endforeach ?>
                     </select>
                 </div>
@@ -158,22 +162,42 @@ $tipovi = TipKorisnika::getAll();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($korisnici as $korisnik): ?> 
+                    <?php foreach ($korisnici as $korisnik): ?> 
                         <tr>
-                            <td><?= $korisnik->id ?></td>
-                            <td><?= $korisnik->ime_prezime ?></td>
-                            <td><?= $korisnik->korisnicko_ime ?></td>
-                            <td><?= $korisnik->email ?></td>
+                            <td>
+                                <?= $korisnik->id ?>
+                            </td>
+                            <td>
+                                <?= $korisnik->ime_prezime ?>
+                            </td>
+                            <td>
+                                <?= $korisnik->korisnicko_ime ?>
+                            </td>
+                            <td>
+                                <?= $korisnik->email ?>
+                            </td>
                             <td>
                                 <?= date('d.m.Y',
                                     strtotime($korisnik->datum_rodjenja)) ?>
                             </td>
-                            <td><?= $korisnik->telefon ?></td>
+                            <td>
+                                <?= $korisnik->telefon ?>
+                            </td>
                             <td data-tip="<?= $korisnik->getTipKorisnika()->id ?>">
                                 <?= $korisnik->getTipKorisnika()->naziv_tipa ?>
                             </td>
-                            <td><button id="izmeni_<?= $korisnik->id ?>" class="izmena">Izmeni</button></td>
-                            <td><button id="obrisi_<?= $korisnik->id ?>" class="obrisi">Obrisi</button></td>
+                            <td>
+                                <button id="izmeni_<?= $korisnik->id ?>"
+                                    class="izmena">
+                                    Izmeni
+                                </button>
+                            </td>
+                            <td>
+                                <button id="obrisi_<?= $korisnik->id ?>"
+                                    class="obrisi">
+                                    Obrisi
+                                </button>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

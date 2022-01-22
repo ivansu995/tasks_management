@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/Tabela.php';
 require_once __DIR__ . '/Korisnik.php';
 require_once __DIR__ . '/Zadatak.php';
@@ -35,7 +36,8 @@ class Komentar extends Tabela
         $db = Database::getInstance();
         
         return $db->select('Komentar',
-        'SELECT * FROM komentari WHERE zadatak_id = :zadatak_id ORDER BY kreiran DESC',
+        'SELECT * FROM komentari 
+        WHERE zadatak_id = :zadatak_id ORDER BY kreiran DESC',
         [
             ':zadatak_id' => $zadatak_id,
         ]); 
@@ -46,7 +48,7 @@ class Komentar extends Tabela
         $db = Database::getInstance();
 
         $id = $db->insert('Komentar',
-            'INSERT INTO komentari (opis_komentara, zadatak_id, korisnik_id) 
+            'INSERT INTO komentari (opis_komentara, zadatak_id, korisnik_id)
             VALUES (:opis_komentara, :zadatak_id, :korisnik_id)',
             [
                 ':opis_komentara' => $opis_komentara,
@@ -61,7 +63,7 @@ class Komentar extends Tabela
                 ':id' => $id,
             ]
         );
-        foreach($komentari as $komentar) {
+        foreach ($komentari as $komentar) {
             return $komentar;
         }
         return null;
@@ -118,7 +120,7 @@ class Komentar extends Tabela
                 ':id' => $id,
             ]
         );
-        foreach($komentari as $komentar) {
+        foreach ($komentari as $komentar) {
             return $komentar;
         }
         return null;

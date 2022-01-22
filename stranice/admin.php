@@ -1,15 +1,11 @@
 <?php
+
 session_start();
 if (!isset($_SESSION['korisnik_admin_id'])) {
     header('Location: prijava.php');
     die();
 }
 
-// if (isset($_GET['strana'])) {
-//     if ($_GET['strana'] === 'tipoviKorisnika') {
-//         require_once __DIR__ . '/../administracija/tipoviKorisnika.php';
-//     }
-// }
 ?>
 
 <!DOCTYPE html>
@@ -20,8 +16,10 @@ if (!isset($_SESSION['korisnik_admin_id'])) {
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
- 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+            crossorigin="anonymous">
         <script src="../js/jquery-3.6.0.min.js"></script>
         <link rel="stylesheet" href="../stilovi/navbar.css">
         <link rel="stylesheet" href="../stilovi/forme.css">
@@ -45,7 +43,9 @@ if (!isset($_SESSION['korisnik_admin_id'])) {
                     <li class="nav-item">
                         <a class="nav-link" 
                             aria-current="page" 
-                            href="admin.php">Pocetna strana</a>
+                            href="admin.php">
+                            Pocetna strana
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" 

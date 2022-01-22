@@ -1,14 +1,16 @@
 <?php
+
 require_once __DIR__ . '/../tabele/Korisnik.php';
 require_once __DIR__ . '/../env.php';
 require_once __DIR__ . '/../tabele/ResetovanjeLozinke.php';
+
 require 'C:\xampp\htdocs\tasks_management\PHPMailer\src\Exception.php';
 require 'C:\xampp\htdocs\tasks_management\PHPMailer\src\PHPMailer.php';
 require 'C:\xampp\htdocs\tasks_management\PHPMailer\src\SMTP.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
-
 
 if (empty($_POST['email'])) {
     header('Location: ../stranice/promenaLozinkeEmail.php?greska_podaci=1');
@@ -16,7 +18,6 @@ if (empty($_POST['email'])) {
 }
 
 $email = $_POST['email'];
-
 $korisnik = Korisnik::proveriMail($email);
 
 if ($korisnik === null) {
@@ -26,7 +27,6 @@ if ($korisnik === null) {
 
 // $token = $korisnik->link_za_aktivaciju;
 $token = bin2hex(random_bytes(32));
-
 $link = "http://localhost/tasks_management/stranice/promenaLozinke.php?key=$token";
 
 // Broj sekundi do ovog trenutka od 1970. + 1800 sekundi (30 min) kolko vazi link
@@ -69,8 +69,7 @@ if ($korisnik !== false) {
         
         $mail->send();
         header('Location: ../stranice/promenaLozinkeEmail.php?poslat_mail=1');
-        die();
-        
+        die(); 
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }   

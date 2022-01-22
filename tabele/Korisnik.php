@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/Database.php';
 require_once __DIR__ . '/Tabela.php';
@@ -19,7 +20,8 @@ class Korisnik extends Tabela
 
     public function getTipKorisnika()
     {
-        return TipKorisnika::getById($this->tip_korisnika_id, 'tipovi_korisnika', 'TipKorisnika');
+        return TipKorisnika::getById($this->tip_korisnika_id,
+            'tipovi_korisnika', 'TipKorisnika');
     }
 
     public static function registracija(
@@ -85,7 +87,8 @@ class Korisnik extends Tabela
         $db=Database::getInstance();
 
         $korisnici = $db->select('Korisnik', 
-            'SELECT * FROM korisnici WHERE tip_korisnika_id = :tip_korisnika_id',
+            'SELECT * FROM korisnici
+            WHERE tip_korisnika_id = :tip_korisnika_id',
             [
                 ':tip_korisnika_id' => $tip_korisnika_id,
             ]
@@ -107,7 +110,7 @@ class Korisnik extends Tabela
             ]
         );
 
-        foreach($korisnici as $korisnik){
+        foreach ($korisnici as $korisnik){
             return $korisnik;
         }
         return null;
@@ -125,7 +128,7 @@ class Korisnik extends Tabela
             ]
         );
 
-        foreach($korisnici as $korisnik){
+        foreach ($korisnici as $korisnik){
             return $korisnik;
         }
         return null;
@@ -158,7 +161,7 @@ class Korisnik extends Tabela
             ]
         );
 
-        foreach($korisnici as $korisnik){
+        foreach ($korisnici as $korisnik){
             return $korisnik;
         }
         return null;
@@ -190,7 +193,7 @@ class Korisnik extends Tabela
                 ':id'=>$id
             ]
         );
-        foreach($korisnici as $korisnik){
+        foreach ($korisnici as $korisnik){
             return $korisnik;
         }
         return null;
@@ -207,21 +210,22 @@ class Korisnik extends Tabela
                 ':ime_prezime'=>$ime_prezime
             ]
         );
-        foreach($korisnik as $k){
+        foreach ($korisnik as $k){
             return $k;
         }
         return null;
     }
 
-    public static function pronadjiNalogZaAktivaciju($link_za_aktivaciju) 
+    public static function pronadjiNalogZaAktivaciju($link_za_aktivaciju)
     {
         $db=Database::getInstance();
 
         $korisnik = $db->select(
             'Korisnik',
-            'SELECT link_za_aktivaciju, aktiviran 
-            FROM korisnici 
-            WHERE aktiviran = 0 AND link_za_aktivaciju = :link_za_aktivaciju LIMIT 1',
+            'SELECT link_za_aktivaciju, aktiviran
+            FROM korisnici
+            WHERE aktiviran = 0 AND
+            link_za_aktivaciju = :link_za_aktivaciju LIMIT 1',
             [
                 'link_za_aktivaciju' => $link_za_aktivaciju,
             ]
@@ -261,7 +265,8 @@ class Korisnik extends Tabela
         ]);
     }
 
-    public static function izmeni($id, $email, $korisnicko_ime, $lozinka, $ime_prezime, $datum_rodjenja, $telefon, $tip_korisnika_id)
+    public static function izmeni($id, $email, $korisnicko_ime,
+        $lozinka, $ime_prezime, $datum_rodjenja, $telefon, $tip_korisnika_id)
     {
         $db=Database::getInstance();
 
@@ -290,7 +295,8 @@ class Korisnik extends Tabela
         // return self::getById($id, 'korisnici', 'Korisnik');
     }
 
-    public static function izmeniBezLozinke($id, $email, $korisnicko_ime, $ime_prezime, $datum_rodjenja, $telefon, $tip_korisnika_id)
+    public static function izmeniBezLozinke($id, $email, $korisnicko_ime,
+        $ime_prezime, $datum_rodjenja, $telefon, $tip_korisnika_id)
     {
         $db=Database::getInstance();
 
@@ -313,7 +319,5 @@ class Korisnik extends Tabela
                 ':tip_korisnika_id' => $tip_korisnika_id,
             ]
         );
-
-        // return self::getById($id, 'korisnici', 'Korisnik');
     }
 }

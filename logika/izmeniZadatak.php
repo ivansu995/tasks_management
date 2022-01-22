@@ -1,8 +1,10 @@
 <?php
+
 require_once __DIR__ . '/../tabele/Zadatak.php';
 
 session_start();
-if (!isset($_SESSION['korisnik_admin_id']) && !isset($_SESSION['korisnik_rukovodilac_id'])) {
+if (!isset($_SESSION['korisnik_admin_id']) &&
+    !isset($_SESSION['korisnik_rukovodilac_id'])) {
     header('Location: ../stranice/prijava.php');
     die();
 }
@@ -23,12 +25,10 @@ Zadatak::izmeni($id, $naslov, $opis, $prioritet, $pocetak_zadatka,
     $kraj_zadatka, $rukovodilac_id, $grupa_zadatka_id, $zavrsen, $otkazan);
 
 if (isset($_SESSION['korisnik_admin_id'])) {
-
     header('Location: ../stranice/admin.php?strana=zadaci');
     die();
 
 } else if (isset($_SESSION['korisnik_rukovodilac_id'])) {
-    
     header('Location: ../stranice/rukovodilac.php?strana=zadaci');
     die();
 }

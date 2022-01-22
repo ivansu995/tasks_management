@@ -1,15 +1,15 @@
 <?php
+
 require_once __DIR__ . '/../tabele/Zadatak.php';
 require_once __DIR__ . '/../tabele/Komentar.php';
 require_once __DIR__ . '/../tabele/Izvrsava.php';
 
-
-if(!isset($_SESSION['korisnik_admin_id']) ) {
-        header('Location: prijava.php');
-        die();
+if (!isset($_SESSION['korisnik_admin_id'])) {
+    header('Location: prijava.php');
+    die();
 }
-$prilozi = Prilog::getByIdZadatka($_GET['id']);
 
+$prilozi = Prilog::getByIdZadatka($_GET['id']);
 $zadatak = Zadatak::getById($_GET['id'], 'zadaci', 'Zadatak');
 $komentari = Komentar::getKomentarByZadatakId($_GET['id']);
 
@@ -23,7 +23,10 @@ $komentari = Komentar::getKomentarByZadatakId($_GET['id']);
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+            rel="stylesheet" 
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
+            crossorigin="anonymous">
         <link rel="stylesheet" href="../stilovi/main.css">
         <link rel="stylesheet" href="../stilovi/navbar.css">
         <link rel="stylesheet" href="../stilovi/forme.css">
@@ -96,9 +99,14 @@ $komentari = Komentar::getKomentarByZadatakId($_GET['id']);
                         <h2 class="naziv_zadatka"><?= $zadatak->naslov ?></h2>
                     </div>
                     <div class="ostatak_zadatka">
-                        <p class="prioritet">Prioritet zadatka: <?= $zadatak->prioritet ?></p><hr>
-                        <p >Opis zadatka: <?= $zadatak->opis ?> </p><hr>
-                        <p>Prilog:
+                        <p class="prioritet">
+                            Prioritet zadatka: <?= $zadatak->prioritet ?>
+                        </p><hr>
+                        <p >
+                            Opis zadatka: <?= $zadatak->opis ?>
+                        </p><hr>
+                        <p>
+                            Prilog:
                             <?php foreach($prilozi as $p): ?>
                                 <?php if($_GET['id'] === $p->zadatak_id): ?> 
                                     <a href="../<?= $p->naziv_priloga ?>">
@@ -110,14 +118,16 @@ $komentari = Komentar::getKomentarByZadatakId($_GET['id']);
                     </div>
                 </div>
                 <div class="col-3 jusify-content-center">
-                    <!-- <div class="forma">
-                        <span class="chart" data-percent="<?= $trenutni_procenat ?>">
-                            <span class="percent">
+                    <div class="forma">
+                        <div class="chart" data-percent="<?= $trenutni_procenat ?>">
+                            <div class="percent">
                                 <?= $trenutni_procenat ?>
-                            </span>
-                        </span>
-                    </div> -->
-                    <form action="../logika/zavrsiZadatak.php" method="post" id="zavrsen_zadatak">
+                            </div>
+                        </div>
+                    </div>
+                    <form action="../logika/zavrsiZadatak.php" 
+                        method="post" 
+                        id="zavrsen_zadatak">
                         Ovde ubaci za zavrsetak zadatka
                     </form> 
                 </div>
@@ -167,8 +177,12 @@ $komentari = Komentar::getKomentarByZadatakId($_GET['id']);
                                 <form action="../logika/obrisiKomentarKorisnik.php" 
                                     method="post"
                                     class="obrisi_komentar">
-                                    <input type="hidden" name="komentar_id" value="<?= $komentar->id ?>">
-                                    <input type="submit" class="obrisi"value="Obrisi">
+                                    <input type="hidden"
+                                        name="komentar_id"
+                                        value="<?= $komentar->id ?>">
+                                    <input type="submit"
+                                        class="obrisi"
+                                        value="Obrisi">
                                 </form>
                             </div>
                             <div class="ostatak_komentara">

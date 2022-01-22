@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 if (isset($_SESSION['korisnik_admin_id'])) {
     header('Location: ./admin.php');
@@ -9,7 +10,7 @@ $error = null;
 
 if (isset($_GET['aktivacija'])) {
     $error = "Prijavite se kako biste aktivirali nalog!";
-} else if(isset($_GET['greska'])) {
+} elseif (isset($_GET['greska'])) {
     $error = "Pogresni podaci za prijavu!";
 }
 ?>

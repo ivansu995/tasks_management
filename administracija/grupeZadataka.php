@@ -1,5 +1,7 @@
 <?php
+
 require_once __DIR__ . '/../tabele/GrupaZadataka.php';
+
 $grupeZadataka = GrupaZadataka::getAll();
 ?>
 
@@ -72,12 +74,26 @@ $grupeZadataka = GrupaZadataka::getAll();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($grupeZadataka as $grupaZadataka): ?> 
+                    <?php foreach ($grupeZadataka as $grupaZadataka): ?> 
                         <tr>
-                            <td><?= $grupaZadataka->id ?></td>
-                            <td><?= $grupaZadataka->naziv ?></td>
-                            <td><button id="izmeni_<?= $grupaZadataka->id ?>" class="izmena">Izmeni</button></td>
-                            <td><button id="obrisi_<?= $grupaZadataka->id ?>" class="obrisi">Obrisi</button></td>
+                            <td>
+                                <?= $grupaZadataka->id ?>
+                            </td>
+                            <td>
+                                <?= $grupaZadataka->naziv ?>
+                            </td>
+                            <td>
+                                <button id="izmeni_<?= $grupaZadataka->id ?>" 
+                                    class="izmena">
+                                    Izmeni
+                                </button>
+                            </td>
+                            <td>
+                                <button id="obrisi_<?= $grupaZadataka->id ?>"
+                                    class="obrisi">
+                                    Obrisi
+                                </button>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

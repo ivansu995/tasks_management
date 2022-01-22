@@ -1,16 +1,15 @@
 <?php
+
 require_once __DIR__ . '/../tabele/Zadatak.php';
 require_once __DIR__ . '/../tabele/Komentar.php';
 require_once __DIR__ . '/../tabele/Izvrsava.php';
 
-
-if(!isset($_SESSION['korisnik_rukovodilac_id']) &&
+if (!isset($_SESSION['korisnik_rukovodilac_id']) &&
     !isset($_GET['id'])) {
-        header('Location: prijava.php');
-        die();
+    header('Location: prijava.php');
+    die();
 }
 $prilozi = Prilog::getByIdZadatka($_GET['id']);
-
 $zadatak = Zadatak::getById($_GET['id'], 'zadaci', 'Zadatak');
 $komentari = Komentar::getKomentarByZadatakId($_GET['id']);
 
@@ -28,7 +27,10 @@ $trenutni_procenat = intval(round(($ukupno_izvrseno/$ukupno_izvrsava)*100));
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+            crossorigin="anonymous">
         <link rel="stylesheet" href="../stilovi/main.css">
         <link rel="stylesheet" href="../stilovi/navbar.css">
         <link rel="stylesheet" href="../stilovi/forme.css">
@@ -111,11 +113,16 @@ $trenutni_procenat = intval(round(($ukupno_izvrseno/$ukupno_izvrsava)*100));
                         <h2 class="naziv_zadatka"><?= $zadatak->naslov ?></h2>
                     </div>
                     <div class="ostatak_zadatka">
-                        <p class="prioritet">Prioritet zadatka: <?= $zadatak->prioritet ?></p><hr>
-                        <p >Opis zadatka: <?= $zadatak->opis ?> </p><hr>
-                        <p>Prilog:
-                            <?php foreach($prilozi as $p): ?>
-                                <?php if($_GET['id'] === $p->zadatak_id): ?> 
+                        <p class="prioritet">
+                            Prioritet zadatka: <?= $zadatak->prioritet ?>
+                        </p><hr>
+                        <p >
+                            Opis zadatka: <?= $zadatak->opis ?>
+                        </p><hr>
+                        <p>
+                            Prilog:
+                            <?php foreach ($prilozi as $p): ?>
+                                <?php if ($_GET['id'] === $p->zadatak_id): ?> 
                                     <a href="../<?= $p->naziv_priloga ?>">
                                         <?= $p->naziv_fajla . " " ?>
                                     </a>
@@ -126,7 +133,8 @@ $trenutni_procenat = intval(round(($ukupno_izvrseno/$ukupno_izvrsava)*100));
                 </div>
                 <div class="col-3 jusify-content-center">
                     <div class="grafikon_zadatak">
-                        <div class="chart" data-percent="<?= $trenutni_procenat ?>">
+                        <div class="chart" 
+                            data-percent="<?= $trenutni_procenat ?>">
                             <div class="percent">
                                 <?= $trenutni_procenat ?>
                             </div>
@@ -154,7 +162,9 @@ $trenutni_procenat = intval(round(($ukupno_izvrseno/$ukupno_izvrsava)*100));
                                 </div>
                             </div>
                         <?php endif ?>
-                        <input type="hidden" name="zadatak_id" value="<?= $zadatak->id ?>">
+                        <input type="hidden"
+                            name="zadatak_id"
+                            value="<?= $zadatak->id ?>">
                     </form>
                     <form action="../logika/otkaziZadatak.php"
                         method="post"
@@ -177,7 +187,9 @@ $trenutni_procenat = intval(round(($ukupno_izvrseno/$ukupno_izvrsava)*100));
                                 </div>
                             </div>
                         <?php endif ?>
-                        <input type="hidden" name="zadatak_id" value="<?= $zadatak->id ?>">
+                        <input type="hidden"
+                            name="zadatak_id"
+                            value="<?= $zadatak->id ?>">
                     </form> 
                 </div>
             </div>
@@ -214,7 +226,7 @@ $trenutni_procenat = intval(round(($ukupno_izvrseno/$ukupno_izvrsava)*100));
             </div>
             <div class="row justify-content-center">
                 <div class="col-8">
-                    <?php foreach($komentari as $komentar): ?>
+                    <?php foreach ($komentari as $komentar): ?>
                         <div class="komentar">
                             <div class="naslov_komentara">
                                 <h5 class="ime_korisnika">

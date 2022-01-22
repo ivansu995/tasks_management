@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../tabele/Zadatak.php';
 require_once __DIR__ . '/../tabele/Korisnik.php';
 require_once __DIR__ . '/../tabele/GrupaZadataka.php';
@@ -32,7 +33,7 @@ $izvrsioci = Izvrsava::getAll();
                 'success': function(poruka) {
                     console.log(poruka);
                     var p = JSON.parse(poruka);
-                    if(p.status === "uspesno") {
+                    if (p.status === "uspesno") {
                         red.remove();
                     }
                 }
@@ -71,8 +72,6 @@ $izvrsioci = Izvrsava::getAll();
     })
 </script>
 
-
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="dodavanje_zadatka_container col-6">
@@ -110,9 +109,13 @@ $izvrsioci = Izvrsava::getAll();
                         class="form-label">
                             Prioritet zadatka
                     </label>  
-                    <select name="prioritet" id="prioritet" class="form-control">
-                        <?php for($i = 1; $i <= 10; $i++): ?>
-                            <option value="<?= $i ?>"><?= $i ?></option>
+                    <select name="prioritet" 
+                        id="prioritet"
+                        class="form-control">
+                        <?php for ($i = 1; $i <= 10; $i++): ?>
+                            <option value="<?= $i ?>">
+                                <?= $i ?>  
+                            </option>
                         <?php endfor ?>
                     </select>
                 </div>
@@ -157,8 +160,10 @@ $izvrsioci = Izvrsava::getAll();
                         multiple
                         id="izvrsoci"
                         class="form-control">
-                        <?php foreach($obicni_korsinici as $korisnik): ?>
-                            <option value="<?= $korisnik->id?>"><?= $korisnik->ime_prezime?></option>
+                        <?php foreach ($obicni_korsinici as $korisnik): ?>
+                            <option value="<?= $korisnik->id?>">
+                                <?= $korisnik->ime_prezime?>
+                            </option>
                         <?php endforeach ?>
                     </select>
                 </div>
@@ -170,8 +175,10 @@ $izvrsioci = Izvrsava::getAll();
                     <select name="tip_korisnika"
                         id="tip_korisnika"
                         class="form-control">
-                        <?php foreach($korisnici as $korisnik): ?>
-                            <option value="<?= $korisnik->id?>"><?= $korisnik->ime_prezime ?></option>
+                        <?php foreach ($korisnici as $korisnik): ?>
+                            <option value="<?= $korisnik->id?>">
+                                <?= $korisnik->ime_prezime ?>
+                            </option>
                         <?php endforeach ?>
                     </select>
                 </div>
@@ -183,8 +190,10 @@ $izvrsioci = Izvrsava::getAll();
                     <select name="grupe_zadataka"
                         id="grupe_zadataka"
                         class="form-control">
-                        <?php foreach($grupe_zadataka as $grupa): ?>
-                            <option value="<?= $grupa->id?>"><?= $grupa->naziv ?></option>
+                        <?php foreach ($grupe_zadataka as $grupa): ?>
+                            <option value="<?= $grupa->id?>">
+                                <?= $grupa->naziv ?>
+                            </option>
                         <?php endforeach ?>
                     </select>
                 </div>
@@ -254,8 +263,10 @@ $izvrsioci = Izvrsava::getAll();
                         name="prioritet_pretraga"
                         id="prioritet_pretraga"
                         class="form-control">
-                    <?php for($i = 1; $i <= 10; $i++): ?>
-                        <option value="<?= $i ?>"><?= $i ?></option>
+                    <?php for ($i = 1; $i <= 10; $i++): ?>
+                        <option value="<?= $i ?>">
+                            <?= $i ?>
+                        </option>
                     <?php endfor ?>
                     </select>
                 </div>
@@ -324,16 +335,24 @@ $izvrsioci = Izvrsava::getAll();
                 if (!empty($rukovodilac)) {
                     $rukovodilac = Korisnik::getKorisnikByName($rukovodilac)->id;
                 }
-                $filtrirani_zadaci = Zadatak::pretraziZadatak($naziv, $prioritet, 
-                                                $rukovodilac, $pocetak_zadatka, $kraj_zadatka);
+                $filtrirani_zadaci = Zadatak::pretraziZadatak($naziv,
+                    $prioritet, $rukovodilac, $pocetak_zadatka, $kraj_zadatka);
             ?>
             <?php if (!empty($filtrirani_zadaci)): ?>
-                <?php foreach($filtrirani_zadaci as $z): ?>
+                <?php foreach ($filtrirani_zadaci as $z): ?>
                     <tr>
-                        <td><?= $z->id ?></td>
-                        <td><?= $z->naslov ?></td>
-                        <td><?= $z->opis ?></td>
-                        <td><?= $z->prioritet ?></td>
+                        <td>
+                            <?= $z->id ?>
+                        </td>
+                        <td>
+                            <?= $z->naslov ?>
+                        </td>
+                        <td>
+                            <?= $z->opis ?>
+                        </td>
+                        <td>
+                            <?= $z->prioritet ?>
+                        </td>
                         <td>
                             <?= date('d.m.Y',
                                 strtotime($z->pocetak_zadatka)) ?>
@@ -343,8 +362,8 @@ $izvrsioci = Izvrsava::getAll();
                                 strtotime($z->kraj_zadatka)) ?>
                         </td>
                         <td>
-                            <?php foreach($prilozi as $p): ?>
-                                <?php if($z->id === $p->zadatak_id): ?> 
+                            <?php foreach ($prilozi as $p): ?>
+                                <?php if ($z->id === $p->zadatak_id): ?> 
                                     <a href="../<?= $p->naziv_priloga ?>">
                                         <?= $p->naziv_fajla ?>
                                     </a>
@@ -352,8 +371,8 @@ $izvrsioci = Izvrsava::getAll();
                             <?php endforeach ?>
                         </td>
                         <td>
-                            <?php foreach($izvrsioci as $i): ?>
-                                <?php if($z->id === $i->zadatak_id): ?>
+                            <?php foreach ($izvrsioci as $i): ?>
+                                <?php if ($z->id === $i->zadatak_id): ?>
                                     <?= Korisnik::getById($i->korisnik_id, 'korisnici', 'Korisnik')->ime_prezime ?> 
                                 <?php endif ?>
                             <?php endforeach ?>
@@ -364,10 +383,24 @@ $izvrsioci = Izvrsava::getAll();
                         <td data-grupa-zadatka="<?= $z->getGrupaZadataka()->id ?>">
                             <?= $z->getGrupaZadataka()->naziv ?>
                         </td>
-                        <td><?= $z->zavrsen ?></td>
-                        <td><?= $z->otkazan ?></td>
-                        <td><button id="izmeni_<?= $z->id ?>" class="izmena">Izmeni</button></td>
-                        <td><button id="obrisi_<?= $z->id ?>" class="obrisi">Obrisi</button></td>
+                        <td>
+                            <?= $z->zavrsen ?>
+                        </td>
+                        <td>
+                            <?= $z->otkazan ?>
+                        </td>
+                        <td>
+                            <button id="izmeni_<?= $z->id ?>"
+                                class="izmena">
+                                Izmeni
+                            </button>
+                        </td>
+                        <td>
+                            <button id="obrisi_<?= $z->id ?>"
+                                class="obrisi">
+                                Obrisi
+                            </button>
+                        </td>
                         <td>
                             <button id="otvori_<?= $z->id ?>" 
                                 onclick="location.href='./rukovodilac.php?strana=zadatak&id=<?= $z->id ?>'"
@@ -377,60 +410,86 @@ $izvrsioci = Izvrsava::getAll();
                         </td>
                     </tr>
                 <?php endforeach?>
-                <?php else: ?>
-                        <tr><td><?= "Nema pronadjenih podataka" ?></td></tr>
-                <?php endif ?>
             <?php else: ?>
-        <?php foreach($zadaci as $zadatak): ?> 
-            <tr>
-                <td><?= $zadatak->id ?></td>
-                <td><?= $zadatak->naslov ?></td>
-                <td><?= $zadatak->opis ?></td>
-                <td><?= $zadatak->prioritet ?></td>
-                <td>
-                    <?= date('d.m.Y',
-                        strtotime($zadatak->pocetak_zadatka)) ?>
-                </td>
-                <td>
-                    <?= date('d.m.Y',
-                        strtotime($zadatak->kraj_zadatka)) ?>
-                </td>
-                <td>
-                    <?php $prilozi_zadatka = Prilog::getByIdZadatka($zadatak->id); ?>
-                    <?php foreach($prilozi_zadatka as $p): ?>
-                        <?php if($zadatak->id === $p->zadatak_id): ?>
-                            <a href="../<?= $p->naziv_priloga ?>">
-                                <?= $p->naziv_fajla ?>
-                            </a>
-                        <?php endif ?>
-                    <?php endforeach ?>
-                </td>
-                <td>
-                    <?php foreach($izvrsioci as $i): ?>
-                        <?php if($zadatak->id === $i->zadatak_id): ?>
-                            <?= Korisnik::getById($i->korisnik_id, 'korisnici', 'Korisnik')->ime_prezime ?>  
-                        <?php endif ?>
-                    <?php endforeach ?>
-                </td>
-                <td data-korisnik="<?= $zadatak->getKorisnik()->id ?>">
-                    <?= $zadatak->getKorisnik()->ime_prezime ?>
-                </td>
-                <td data-grupa-zadatka="<?= $zadatak->getGrupaZadataka()->id ?>">
-                    <?= $zadatak->getGrupaZadataka()->naziv ?>
-                </td>
-                <td><?= $zadatak->zavrsen ?></td>
-                <td><?= $zadatak->otkazan ?></td>
-                <td><button id="izmeni_<?= $zadatak->id ?>" class="izmena">Izmeni</button></td>
-                <td><button id="obrisi_<?= $zadatak->id ?>" class="obrisi">Obrisi</button></td>
-                <td>
-                    <button id="otvori_<?= $zadatak->id ?>" 
-                        onclick="location.href='./rukovodilac.php?strana=zadatak&id=<?= $zadatak->id ?>'"
-                        class="btnOtvori">
-                            Otvori
-                    </button>
-                </td>
-            </tr>
-        <?php endforeach ?>
+                <tr>
+                    <td>
+                        <?= "Nema pronadjenih podataka" ?>
+                    </td>
+                </tr>
+            <?php endif ?>
+        <?php else: ?>
+            <?php foreach ($zadaci as $zadatak): ?> 
+                <tr>
+                    <td>
+                        <?= $zadatak->id ?>
+                    </td>
+                    <td>
+                        <?= $zadatak->naslov ?>
+                    </td>
+                    <td>
+                        <?= $zadatak->opis ?>
+                    </td>
+                    <td>
+                        <?= $zadatak->prioritet ?>
+                    </td>
+                    <td>
+                        <?= date('d.m.Y',
+                            strtotime($zadatak->pocetak_zadatka)) ?>
+                    </td>
+                    <td>
+                        <?= date('d.m.Y',
+                            strtotime($zadatak->kraj_zadatka)) ?>
+                    </td>
+                    <td>
+                        <?php $prilozi_zadatka = Prilog::getByIdZadatka($zadatak->id); ?>
+                        <?php foreach ($prilozi_zadatka as $p): ?>
+                            <?php if ($zadatak->id === $p->zadatak_id): ?>
+                                <a href="../<?= $p->naziv_priloga ?>">
+                                    <?= $p->naziv_fajla ?>
+                                </a>
+                            <?php endif ?>
+                        <?php endforeach ?>
+                    </td>
+                    <td>
+                        <?php foreach ($izvrsioci as $i): ?>
+                            <?php if ($zadatak->id === $i->zadatak_id): ?>
+                                <?= Korisnik::getById($i->korisnik_id, 'korisnici', 'Korisnik')->ime_prezime ?> 
+                            <?php endif ?>
+                        <?php endforeach ?>
+                    </td>
+                    <td data-korisnik="<?= $zadatak->getKorisnik()->id ?>">
+                        <?= $zadatak->getKorisnik()->ime_prezime ?>
+                    </td>
+                    <td data-grupa-zadatka="<?= $zadatak->getGrupaZadataka()->id ?>">
+                        <?= $zadatak->getGrupaZadataka()->naziv ?>
+                    </td>
+                    <td>
+                        <?= $zadatak->zavrsen ?>
+                    </td>
+                    <td>
+                        <?= $zadatak->otkazan ?>
+                    </td>
+                    <td>
+                        <button id="izmeni_<?= $zadatak->id ?>"
+                            class="izmena">
+                            Izmeni
+                        </button>
+                    </td>
+                    <td>
+                        <button id="obrisi_<?= $zadatak->id ?>"
+                            class="obrisi">
+                            Obrisi
+                        </button>
+                    </td>
+                    <td>
+                        <button id="otvori_<?= $zadatak->id ?>" 
+                            onclick="location.href='./rukovodilac.php?strana=zadatak&id=<?= $zadatak->id ?>'"
+                            class="btnOtvori">
+                                Otvori
+                        </button>
+                    </td>
+                </tr>
+            <?php endforeach ?>
         <?php endif ?>
     </tbody>
 </table>

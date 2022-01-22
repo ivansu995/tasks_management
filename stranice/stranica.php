@@ -1,29 +1,30 @@
 <?php
+
 require_once __DIR__ . '/../tabele/Zadatak.php';
 require_once __DIR__ . '/../tabele/Korisnik.php';
 require_once __DIR__ . '/../tabele/Izvrsava.php';
 require_once __DIR__ . '/../tabele/Prilog.php';
 
-if(!isset($_SESSION['korisnik_id']) && !isset($_SESSION['korisnik_admin_id'])) {
+if(!isset($_SESSION['korisnik_id']) &&
+    !isset($_SESSION['korisnik_admin_id'])) {
     header('Location: prijava.php');
     die();
 }
 
 $rukovodioci = Korisnik::getByTip(2);
 $clanovi = Korisnik::getByTip(3);
-
 $zadaci = [];
 $izvrsava = Izvrsava::getZadatakByKorisnikId($_SESSION['korisnik_id']);
-foreach($izvrsava as $i) {
+foreach ($izvrsava as $i) {
     //Push-uje sve zadatke koji se uzimju po ID-u za korisnika koji ih izvrsava
     //Iz tabele izvrsava jer je veza vise prema vise
-    array_push($zadaci, Zadatak::getById($i->getZadatak()->id, 'zadaci', 'Zadatak'));
+    array_push($zadaci,
+        Zadatak::getById($i->getZadatak()->id, 'zadaci', 'Zadatak'));
 }
 
-foreach($zadaci as $zadatak) {
+foreach ($zadaci as $zadatak) {
     $prilozi = Prilog::getByIdZadatka($zadatak->id);
 }
-
 $izvrsioci = Izvrsava::getAll();
 
 ?>
@@ -70,8 +71,10 @@ $izvrsioci = Izvrsava::getAll();
                             id="kraj_zadatka_pretraga"
                             class="form-control"><br>    
                     </div>
-                
-                    <input class="btnSubmit" type="submit" name="pretraga" value="Filtriraj">
+                    <input class="btnSubmit"
+                        type="submit"
+                        name="pretraga"
+                        value="Filtriraj">
                 </form>
                 </div>
             </div>
@@ -103,13 +106,13 @@ $izvrsioci = Izvrsava::getAll();
     
                             if (!empty($rukovodilac)) {
                                 $rukovodilac = Korisnik::getKorisnikByName($rukovodilac)->id;
-                                foreach($zadaci as $zadatak) {
+                                foreach ($zadaci as $zadatak) {
                                     if ($zadatak->rukovodilac_id === $rukovodilac) {
                                         array_push($filtrirani_zadaci, $zadatak);
                                     }
                                 }
                             } elseif (!empty($kraj_zadatka)) {
-                                foreach($zadaci as $zadatak) {
+                                foreach ($zadaci as $zadatak) {
                                     if ($zadatak->kraj_zadatka === $kraj_zadatka) {
                                         array_push($filtrirani_zadaci, $zadatak);
                                     }
@@ -117,25 +120,33 @@ $izvrsioci = Izvrsava::getAll();
                             } 
                         ?>
                         <?php if (!empty($filtrirani_zadaci)): ?>
-                            <?php foreach($filtrirani_zadaci as $z): ?>
+                            <?php foreach ($filtrirani_zadaci as $z): ?>
                                 <tr>
-                                    <td><?= $z->id ?></td>
-                                    <td><?= $z->naslov ?></td>
-                                    <td><?= $z->opis ?></td>
-                                    <td><?= $z->prioritet ?></td>
                                     <td>
-                                        <?= date('d.m.Y', 
-                                                strtotime($zadatak->pocetak_zadatka)) 
+                                        <?= $z->id ?>
+                                    </td>
+                                    <td>
+                                        <?= $z->naslov ?>
+                                    </td>
+                                    <td>
+                                        <?= $z->opis ?>
+                                    </td>
+                                    <td>
+                                        <?= $z->prioritet ?>
+                                    </td>
+                                    <td>
+                                        <?= date('d.m.Y',
+                                                strtotime($zadatak->pocetak_zadatka))
                                         ?>
                                     </td>
                                     <td>
-                                        <?= date('d.m.Y', 
-                                                strtotime($zadatak->kraj_zadatka)) 
+                                        <?= date('d.m.Y',
+                                                strtotime($zadatak->kraj_zadatka))
                                         ?>
                                     </td>
                                     <td>
-                                        <?php foreach($prilozi as $p): ?>
-                                            <?php if($z->id === $p->zadatak_id): ?> 
+                                        <?php foreach ($prilozi as $p): ?>
+                                            <?php if ($z->id === $p->zadatak_id): ?> 
                                                 <a href="../<?= $p->naziv_priloga ?>">
                                                     <?= $p->naziv_fajla ?>
                                                 </a>
@@ -143,15 +154,14 @@ $izvrsioci = Izvrsava::getAll();
                                         <?php endforeach ?>
                                     </td>
                                     <td>
-                                        <?php foreach($izvrsioci as $i): ?>
-                                            <?php if($z->id === $i->zadatak_id): ?>
+                                        <?php foreach ($izvrsioci as $i): ?>
+                                            <?php if ($z->id === $i->zadatak_id): ?>
                                                 <?= Korisnik::getById($i->korisnik_id,
                                                         'korisnici', 'Korisnik')->ime_prezime ?> 
                                             <?php endif ?>
                                         <?php endforeach ?>
                                     </td>
-                                    <!-- Prilog izmeni nije dobro -->
-                                    <td data-korisnik="<?= $z->getKorisnik()->id ?>">                             
+                                    <td data-korisnik="<?= $z->getKorisnik()->id ?>">                          
                                         <?= $z->getKorisnik()->ime_prezime ?>
                                     </td>
                                     <td data-grupa-zadatka="<?= $z->getGrupaZadataka()->id ?>">
@@ -173,56 +183,57 @@ $izvrsioci = Izvrsava::getAll();
                             <tr><td><?= "Nema pronadjenih podataka" ?></td></tr>
                         <?php endif ?>
                     <?php else: ?>
-                    <?php foreach($zadaci as $zadatak): ?> 
-                        <tr>
-                            <td><?= $zadatak->id ?></td>
-                            <td><?= $zadatak->naslov ?></td>
-                            <td><?= $zadatak->opis ?></td>
-                            <td><?= $zadatak->prioritet ?></td>
-                            <td>
-                                <?= date('d.m.Y', 
-                                        strtotime($zadatak->pocetak_zadatka)) 
-                                ?>
-                            </td>
-                            <td>
-                                <?= date('d.m.Y', 
-                                        strtotime($zadatak->kraj_zadatka)) 
-                                ?>
-                            </td>
-                            <td>
-                                <?php foreach($prilozi as $p): ?>
-                                    <?php if($zadatak->id === $p->zadatak_id): ?> 
-                                        <a href="../<?= $p->naziv_priloga ?>">
-                                            <?= $p->naziv_fajla ?>
-                                        </a>
-                                    <?php endif ?>
-                                <?php endforeach ?>
-                            </td>
-                            <td>
-                                <?php foreach($izvrsioci as $i): ?>
-                                    <?php if($zadatak->id === $i->zadatak_id): ?>
-                                        <?= Korisnik::getById($i->korisnik_id, 'korisnici', 'Korisnik')->ime_prezime ?>  
-                                    <?php endif ?>
-                                <?php endforeach ?>
-                            </td>
-                            <td data-korisnik="<?= $zadatak->getKorisnik()->id ?>">
-                                <?= $zadatak->getKorisnik()->ime_prezime ?>
-                            </td>
-                            <td data-grupa-zadatka="<?= $zadatak->getGrupaZadataka()->id ?>">
-                                <?= $zadatak->getGrupaZadataka()->naziv ?>
-                            </td>
-                            <td><?= $zadatak->zavrsen ?></td>
-                            <td><?= $zadatak->otkazan ?></td>
-                            <td>
-                                <button 
-                                    id="otvori_<?= $zadatak->id ?>" 
-                                    onclick="location.href='./index.php?strana=zadatak&id=<?= $zadatak->id ?>'"
-                                    class="btnOtvori">
-                                        Otvori
-                                </button>
-                            </td>
-                        </tr>
-                    <?php endforeach ?>
+                        <?php foreach($zadaci as $zadatak): ?> 
+                            <tr>
+                                <td><?= $zadatak->id ?></td>
+                                <td><?= $zadatak->naslov ?></td>
+                                <td><?= $zadatak->opis ?></td>
+                                <td><?= $zadatak->prioritet ?></td>
+                                <td>
+                                    <?= date('d.m.Y',
+                                            strtotime($zadatak->pocetak_zadatka))
+                                    ?>
+                                </td>
+                                <td>
+                                    <?= date('d.m.Y',
+                                            strtotime($zadatak->kraj_zadatka))
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php foreach ($prilozi as $p): ?>
+                                        <?php if ($zadatak->id === $p->zadatak_id): ?>
+                                            <a href="../<?= $p->naziv_priloga ?>">
+                                                <?= $p->naziv_fajla ?>
+                                            </a>
+                                        <?php endif ?>
+                                    <?php endforeach ?>
+                                </td>
+                                <td>
+                                    <?php foreach ($izvrsioci as $i): ?>
+                                        <?php if ($zadatak->id === $i->zadatak_id): ?>
+                                            <?= Korisnik::getById($i->korisnik_id,
+                                                'korisnici', 'Korisnik')->ime_prezime ?>  
+                                        <?php endif ?>
+                                    <?php endforeach ?>
+                                </td>
+                                <td data-korisnik="<?= $zadatak->getKorisnik()->id ?>">
+                                    <?= $zadatak->getKorisnik()->ime_prezime ?>
+                                </td>
+                                <td data-grupa-zadatka="<?= $zadatak->getGrupaZadataka()->id ?>">
+                                    <?= $zadatak->getGrupaZadataka()->naziv ?>
+                                </td>
+                                <td><?= $zadatak->zavrsen ?></td>
+                                <td><?= $zadatak->otkazan ?></td>
+                                <td>
+                                    <button 
+                                        id="otvori_<?= $zadatak->id ?>" 
+                                        onclick="location.href='./index.php?strana=zadatak&id=<?= $zadatak->id ?>'"
+                                        class="btnOtvori">
+                                            Otvori
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
                     <?php endif ?>
                 </tbody>
             </table>     
