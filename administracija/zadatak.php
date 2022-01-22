@@ -4,8 +4,7 @@ require_once __DIR__ . '/../tabele/Komentar.php';
 require_once __DIR__ . '/../tabele/Izvrsava.php';
 
 
-if(!isset($_SESSION['korisnik_rukovodilac_id']) &&
-    !isset($_GET['id'])) {
+if(!isset($_SESSION['korisnik_admin_id']) ) {
         header('Location: prijava.php');
         die();
 }
@@ -13,10 +12,6 @@ $prilozi = Prilog::getByIdZadatka($_GET['id']);
 
 $zadatak = Zadatak::getById($_GET['id'], 'zadaci', 'Zadatak');
 $komentari = Komentar::getKomentarByZadatakId($_GET['id']);
-
-$ukupno_izvrsava = count(Izvrsava::ukupnoIzvrsiocaPoZadatku($_GET['id']));
-$ukupno_izvrseno = count(Izvrsava::korisniciKojiNisuZavrsiliZadatak($_GET['id'], 1));
-$trenutni_procenat = intval(round(($ukupno_izvrseno/$ukupno_izvrsava)*100)); 
 
 ?>
 
@@ -33,7 +28,6 @@ $trenutni_procenat = intval(round(($ukupno_izvrseno/$ukupno_izvrsava)*100));
         <link rel="stylesheet" href="../stilovi/navbar.css">
         <link rel="stylesheet" href="../stilovi/forme.css">
         <link rel="stylesheet" href="../stilovi/zadatakPrikaz.css">
-        <script src="../js/jquery-easypiechart.js"></script>
     </head>
     <body>
         <script>
@@ -93,15 +87,6 @@ $trenutni_procenat = intval(round(($ukupno_izvrseno/$ukupno_izvrsava)*100));
                         }
                     })
                 });
-
-                $('.chart').easyPieChart({
-                    scaleColor: false,
-                    barColor: "#0062CC",
-                    trackColor: "#d3d3d3",
-                    lineWidth: 13,
-                    scaleLength: 5,
-                    size: 150,
-                });
             })
         </script>
         <div class="container">
@@ -125,59 +110,15 @@ $trenutni_procenat = intval(round(($ukupno_izvrseno/$ukupno_izvrsava)*100));
                     </div>
                 </div>
                 <div class="col-3 jusify-content-center">
-                    <div class="grafikon_zadatak">
-                        <div class="chart" data-percent="<?= $trenutni_procenat ?>">
-                            <div class="percent">
+                    <!-- <div class="forma">
+                        <span class="chart" data-percent="<?= $trenutni_procenat ?>">
+                            <span class="percent">
                                 <?= $trenutni_procenat ?>
-                            </div>
-                        </div>
-                    </div>
-                    <form action="../logika/zavrsiZadatakRukovodilac.php"
-                        method="post"
-                        class="zavrsen_zadatak">
-                        <?php if ($zadatak->zavrsen === "Ne"): ?>
-                            <input type="submit" 
-                                id="zavrsen_zadatak_dugme"
-                                value="Zavrsi zadatak"
-                                class="btnZavrsi"
-                                >
-                        <?php elseif ($zadatak->zavrsen === "Da" &&
-                                $trenutni_procenat == 100): ?>
-                            <div class="zavrsen_zadatak form-group">
-                                <input type="submit"
-                                    id="zavrsen_zadatak_dugme" 
-                                    disabled
-                                    value="Zavrsi zadatak"
-                                    class="btnZavrsi">
-                                <div class="alert alert-success">
-                                    Zadatak je zavrsen!
-                                </div>
-                            </div>
-                        <?php endif ?>
-                        <input type="hidden" name="zadatak_id" value="<?= $zadatak->id ?>">
-                    </form>
-                    <form action="../logika/otkaziZadatak.php"
-                        method="post"
-                        class="zavrsen_zadatak">
-                        <?php if ($zadatak->otkazan === "Ne"): ?>
-                            <input type="submit" 
-                                id="otkazan_zadatak_dugme"
-                                value="Otkazi zadatak"
-                                class="btnZavrsi"
-                                >
-                        <?php else: ?>
-                            <div class="zavrsen_zadatak form-group">
-                                <input type="submit"
-                                    id="otkazan_zadatak_dugme" 
-                                    disabled
-                                    value="Otkazi zadatak"
-                                    class="btnZavrsi">
-                                <div class="alert alert-warning">
-                                    Zadatak je otkazan!
-                                </div>
-                            </div>
-                        <?php endif ?>
-                        <input type="hidden" name="zadatak_id" value="<?= $zadatak->id ?>">
+                            </span>
+                        </span>
+                    </div> -->
+                    <form action="../logika/zavrsiZadatak.php" method="post" id="zavrsen_zadatak">
+                        Ovde ubaci za zavrsetak zadatka
                     </form> 
                 </div>
             </div>
@@ -203,7 +144,7 @@ $trenutni_procenat = intval(round(($ukupno_izvrseno/$ukupno_izvrsava)*100));
                             <input type="hidden"
                                 name="korisnik_id"
                                 id="korisnik_id" 
-                                value='<?= $_SESSION['korisnik_rukovodilac_id'] ?>'>
+                                value='<?= $_SESSION['korisnik_admin_id'] ?>'>
                             <input type="submit"
                                 id="postavi_komentar"
                                 value="Posalji komentar"

@@ -5,7 +5,7 @@ require_once __DIR__ . '/../tabele/GrupaZadataka.php';
 require_once __DIR__ . '/../tabele/Prilog.php';
 require_once __DIR__ . '/../tabele/Izvrsava.php';
 require_once __DIR__ . '/../tabele/TipKorisnika.php';
-// require_once __DIR__ . '/../stranice/rukovodilac.php';
+
 
 $zadaci = Zadatak::getAll();
 $tip_korisnika = TipKorisnika::getByName("izvrsilac");
@@ -71,68 +71,227 @@ $izvrsioci = Izvrsava::getAll();
     })
 </script>
 
-<h2>Zadaci</h2>
-<form action="../logika/dodajZadatak.php"
-    method="post" 
-    id="prva_forma" 
-    enctype="multipart/form-data">
 
-    <input type="text" name="naslov" id="naslov" maxlength="191" placeholder="Unesite naslov"><br>
-    <textarea name="opis" id="opis" placeholder="Unesti opis zadatka"></textarea><br>
-    <select name="prioritet" id="prioritet">
-        <?php for($i = 1; $i <= 10; $i++): ?>
-            <option value="<?= $i ?>"><?= $i ?></option>
-        <?php endfor ?>
-    </select><br>
-    <input type="date" name="pocetak_zadatka" id="pocetak_zadatka"><br>
-    <input type="date" name="kraj_zadatka" id="kraj_zadatka"><br>
-    <label for="prilog">Izaberite fajlove:</label>
-    <input type="file" name="prilog[]" 
-        id="prilog" 
-        placeholder="Dodaj fajl"
-        accept="image/jpeg,image/png,image/gif"
-        multiple><br>
-    <select name="izvrsioci[]" multiple="multiple" id="izvrsoci">
-        <?php foreach($obicni_korsinici as $korisnik): ?>
-            <option value="<?= $korisnik->id?>"><?= $korisnik->ime_prezime?></option>
-        <?php endforeach ?>
-    </select>
-    <select name="tip_korisnika" id="tip_korisnika">
-        <?php foreach($korisnici as $korisnik): ?>
-            <option value="<?= $korisnik->id?>"><?= $korisnik->ime_prezime ?></option>
-        <?php endforeach ?>
-    </select><br>
-    <select name="grupe_zadataka" id="grupe_zadataka">
-        <?php foreach($grupe_zadataka as $grupa): ?>
-            <option value="<?= $grupa->id?>"><?= $grupa->naziv ?></option>
-        <?php endforeach ?>
-    </select><br>
-    <select name="zavrsen" id="zavrsen">
-        <option value="Ne">Ne</option>
-        <option value="Da">Da</option>
-    </select>
-    <select name="otkazan" id="otkazan">
-        <option value="Ne">Ne</option>
-        <option value="Da">Da</option>
-    </select>
-    <input type="hidden" name="zadatak_id" id="zadatak_id">
-    <input type="submit" value="Snimi">
-</form>
 
-<!-- Pretraga forma -->
-<form method="post" id="forma_filtriranje" action="#tabela">
-    <h3>Filtriranje zadataka</h3>
-    <input type="text" name="naziv_pretraga" placeholder="Naziv zadatka" id="naziv_pretraga">
-    <input type="text" name="rukovodilac_pretraga" placeholder="Ime rukovodioca" id="rukovodilac_pretraga">
-    <select name="prioritet_pretraga" id="prioritet_pretraga">
-        <?php for($i = 1; $i <= 10; $i++): ?>
-            <option value="<?= $i ?>"><?= $i ?></option>
-        <?php endfor ?>
-    </select>
-    <input type="date" name="pocetak_zadatka_pretraga" id="pocetak_zadatka_pretraga"><br>
-    <input type="date" name="kraj_zadatka_pretraga" id="kraj_zadatka_pretraga"><br>
-    <input type="submit" name="pretraga" value="Filtriraj">
-</form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="dodavanje_zadatka_container col-6">
+            <h4 class="podnaslov">Dodavanje novog zadatka</h4>    
+            <form action="../logika/dodajZadatak.php"
+                method="post" 
+                id="prva_forma" 
+                enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label for="naslov"
+                        class="form-label">
+                            Naziv zadatka
+                    </label>   
+                    <input type="text" 
+                        name="naslov" 
+                        id="naslov"
+                        maxlength="191"
+                        placeholder="Unesite naslov zadatka"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="opis"
+                        class="form-label">
+                            Opis zadatka
+                    </label>
+                    <textarea name="opis" 
+                        id="opis"
+                        placeholder="Unesti opis zadatka"
+                        class="form-control"
+                    ></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="prioritet"
+                        class="form-label">
+                            Prioritet zadatka
+                    </label>  
+                    <select name="prioritet" id="prioritet" class="form-control">
+                        <?php for($i = 1; $i <= 10; $i++): ?>
+                            <option value="<?= $i ?>"><?= $i ?></option>
+                        <?php endfor ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pocetak_zadatka"
+                        class="form-label">
+                            Datum pocetka zadatka
+                    </label> 
+                    <input type="date"
+                        name="pocetak_zadatka"
+                        id="pocetak_zadatka"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="kraj_zadatka"
+                        class="form-label">
+                            Datum kraja zadatka
+                    </label> 
+                    <input type="date"
+                        name="kraj_zadatka"
+                        id="kraj_zadatka"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="prilog"
+                        class="form-label">
+                            Izaberite fajlove
+                    </label>
+                    <input type="file" name="prilog[]" 
+                        id="prilog" 
+                        placeholder="Dodaj fajl"
+                        accept=".pdf,.png,.jpg,.jpeg,.txt,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                        multiple
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="izvrsioci"
+                        class="form-label">
+                            Izaberite izvrsioce (Ctrl za vise)
+                    </label>
+                    <select name="izvrsioci[]"
+                        multiple
+                        id="izvrsoci"
+                        class="form-control">
+                        <?php foreach($obicni_korsinici as $korisnik): ?>
+                            <option value="<?= $korisnik->id?>"><?= $korisnik->ime_prezime?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tip_korisnika"
+                        class="form-label">
+                            Izaberite rukovodioca
+                    </label>
+                    <select name="tip_korisnika"
+                        id="tip_korisnika"
+                        class="form-control">
+                        <?php foreach($korisnici as $korisnik): ?>
+                            <option value="<?= $korisnik->id?>"><?= $korisnik->ime_prezime ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="grupe_zadataka"
+                        class="form-label">
+                            Izaberite grupu zadatka
+                    </label>
+                    <select name="grupe_zadataka"
+                        id="grupe_zadataka"
+                        class="form-control">
+                        <?php foreach($grupe_zadataka as $grupa): ?>
+                            <option value="<?= $grupa->id?>"><?= $grupa->naziv ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="zavrsen"
+                        class="form-label">
+                            Da li je zadatak zavrsen?
+                    </label>
+                    <select name="zavrsen"
+                        id="zavrsen"
+                        class="form-control">
+                        <option value="Ne">Ne</option>
+                        <option value="Da">Da</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="otkazan"
+                        class="form-label">
+                            Da li je zadatak otkazan?
+                    </label>
+                    <select name="otkazan"
+                        id="otkazan"
+                        class="form-control">
+                        <option value="Ne">Ne</option>
+                        <option value="Da">Da</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit"
+                        value="Snimi"
+                        class="btnSubmit">
+                </div>
+                <input type="hidden" name="zadatak_id" id="zadatak_id">
+            </form>
+        </div>
+        <div class="col-6">
+            <form method="post" id="forma_filtriranje" action="#tabela">
+                <h4 class="podnaslov">Filtriranje zadataka</h4>
+                <div class="form-group">
+                    <label for="naziv_pretraga"
+                        class="form-label">
+                            Unesite naziv zadatka za pretragu
+                    </label>
+                    <input type="text"
+                        name="naziv_pretraga"
+                        placeholder="Naziv zadatka"
+                        id="naziv_pretraga"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="rukovodilac_pretraga"
+                        class="form-label">
+                            Unesite ime rukoviodioca za pretragu
+                    </label>
+                    <input type="text"
+                        name="rukovodilac_pretraga"
+                        placeholder="Ime rukovodioca"
+                        id="rukovodilac_pretraga"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="prioritet_pretraga"
+                        class="form-label">
+                            Odaberite prioritet zadatka
+                    </label>
+                    <select 
+                        name="prioritet_pretraga"
+                        id="prioritet_pretraga"
+                        class="form-control">
+                    <?php for($i = 1; $i <= 10; $i++): ?>
+                        <option value="<?= $i ?>"><?= $i ?></option>
+                    <?php endfor ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pocetak_zadatka_pretraga"
+                        class="form-label">
+                            Pocetak zadatka
+                    </label>
+                    <input type="date"
+                        name="pocetak_zadatka_pretraga"
+                        id="pocetak_zadatka_pretraga"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="kraj_zadatka_pretraga"
+                        class="form-label">
+                            Kraj zadatka
+                    </label>
+                    <input type="date"
+                        name="kraj_zadatka_pretraga"
+                        id="kraj_zadatka_pretraga"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="submit"
+                        name="pretraga"
+                        value="Filtriraj"
+                        class="btnSubmit">
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+
+
 
 <table class="table table-hover" id="tabela">
     <thead>
@@ -167,42 +326,42 @@ $izvrsioci = Izvrsava::getAll();
                 }
                 $filtrirani_zadaci = Zadatak::pretraziZadatak($naziv, $prioritet, 
                                                 $rukovodilac, $pocetak_zadatka, $kraj_zadatka);
-                // var_dump($filtrirani_zadaci);
-                // echo '<tr><td></td></tr>';
-                // die()
             ?>
-            <?php if ($filtrirani_zadaci !== null): ?>
+            <?php if (!empty($filtrirani_zadaci)): ?>
                 <?php foreach($filtrirani_zadaci as $z): ?>
                     <tr>
                         <td><?= $z->id ?></td>
                         <td><?= $z->naslov ?></td>
                         <td><?= $z->opis ?></td>
                         <td><?= $z->prioritet ?></td>
-                        <td><?= $z->pocetak_zadatka ?></td>
-                        <td><?= $z->kraj_zadatka ?></td>
+                        <td>
+                            <?= date('d.m.Y',
+                                strtotime($z->pocetak_zadatka)) ?>
+                        </td>
+                        <td>
+                            <?= date('d.m.Y',
+                                strtotime($z->kraj_zadatka)) ?>
+                        </td>
                         <td>
                             <?php foreach($prilozi as $p): ?>
                                 <?php if($z->id === $p->zadatak_id): ?> 
-                                    <!-- zadatak -->
-                                    <?= $p->naziv_priloga ?>
+                                    <a href="../<?= $p->naziv_priloga ?>">
+                                        <?= $p->naziv_fajla ?>
+                                    </a>
                                 <?php endif ?>
                             <?php endforeach ?>
                         </td>
                         <td>
                             <?php foreach($izvrsioci as $i): ?>
                                 <?php if($z->id === $i->zadatak_id): ?>
-                                    <!-- zadatak -->
                                     <?= Korisnik::getById($i->korisnik_id, 'korisnici', 'Korisnik')->ime_prezime ?> 
                                 <?php endif ?>
                             <?php endforeach ?>
                         </td>
-                        <!-- Prilog izmeni nije dobro -->
                         <td data-korisnik="<?= $z->getKorisnik()->id ?>">
-                        <!-- zadatak -->
                             <?= $z->getKorisnik()->ime_prezime ?>
                         </td>
                         <td data-grupa-zadatka="<?= $z->getGrupaZadataka()->id ?>">
-                        <!-- zadatak -->
                             <?= $z->getGrupaZadataka()->naziv ?>
                         </td>
                         <td><?= $z->zavrsen ?></td>
@@ -211,29 +370,37 @@ $izvrsioci = Izvrsava::getAll();
                         <td><button id="obrisi_<?= $z->id ?>" class="obrisi">Obrisi</button></td>
                         <td>
                             <button id="otvori_<?= $z->id ?>" 
-                                onclick="location.href='./rukovodilac.php?strana=zadatak&id=<?= $z->id ?>'">
+                                onclick="location.href='./rukovodilac.php?strana=zadatak&id=<?= $z->id ?>'"
+                                class="btnOtvori">
                                     Otvori
                             </button>
                         </td>
                     </tr>
                 <?php endforeach?>
-            <?php endif ?>
-        <?php else: ?>
-    
+                <?php else: ?>
+                        <tr><td><?= "Nema pronadjenih podataka" ?></td></tr>
+                <?php endif ?>
+            <?php else: ?>
         <?php foreach($zadaci as $zadatak): ?> 
             <tr>
                 <td><?= $zadatak->id ?></td>
                 <td><?= $zadatak->naslov ?></td>
                 <td><?= $zadatak->opis ?></td>
                 <td><?= $zadatak->prioritet ?></td>
-                <td><?= $zadatak->pocetak_zadatka ?></td>
-                <td><?= $zadatak->kraj_zadatka ?></td>
+                <td>
+                    <?= date('d.m.Y',
+                        strtotime($zadatak->pocetak_zadatka)) ?>
+                </td>
+                <td>
+                    <?= date('d.m.Y',
+                        strtotime($zadatak->kraj_zadatka)) ?>
+                </td>
                 <td>
                     <?php $prilozi_zadatka = Prilog::getByIdZadatka($zadatak->id); ?>
                     <?php foreach($prilozi_zadatka as $p): ?>
                         <?php if($zadatak->id === $p->zadatak_id): ?>
                             <a href="../<?= $p->naziv_priloga ?>">
-                                <?= $p->naziv_priloga ?>
+                                <?= $p->naziv_fajla ?>
                             </a>
                         <?php endif ?>
                     <?php endforeach ?>
@@ -245,7 +412,6 @@ $izvrsioci = Izvrsava::getAll();
                         <?php endif ?>
                     <?php endforeach ?>
                 </td>
-                <!-- Prilog izmeni nije dobro -->
                 <td data-korisnik="<?= $zadatak->getKorisnik()->id ?>">
                     <?= $zadatak->getKorisnik()->ime_prezime ?>
                 </td>
@@ -258,7 +424,8 @@ $izvrsioci = Izvrsava::getAll();
                 <td><button id="obrisi_<?= $zadatak->id ?>" class="obrisi">Obrisi</button></td>
                 <td>
                     <button id="otvori_<?= $zadatak->id ?>" 
-                        onclick="location.href='./rukovodilac.php?strana=zadatak&id=<?= $zadatak->id ?>'">
+                        onclick="location.href='./rukovodilac.php?strana=zadatak&id=<?= $zadatak->id ?>'"
+                        class="btnOtvori">
                             Otvori
                     </button>
                 </td>

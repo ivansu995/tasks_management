@@ -29,7 +29,7 @@ if (isset($_GET['greska_link'])) {
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link rel="stylesheet" href="../forme.css">
+        <link rel="stylesheet" href="../stilovi/forme.css">
     </head>
     <body>
         <div class="container login-container">
@@ -51,6 +51,11 @@ if (isset($_GET['greska_link'])) {
                                 name="ponovi_novu_lozinku" 
                                 placeholder="Unesite ponovo novu lozinku">
                         </div>
+                        <?php if ($error !== null): ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?= $error ?>
+                            </div>
+                        <?php endif ?>
                         <div class="form-group">
                             <input type="submit" 
                                 class="btnSubmit"
@@ -67,9 +72,6 @@ if (isset($_GET['greska_link'])) {
                             </a>
                             <br>
                         </div>
-                        <p>
-                            <?= $error ?>
-                        </p>
                     </form>
                 </div>
             </div>

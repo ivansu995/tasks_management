@@ -1,0 +1,137 @@
+.row {
+    justify-content: center;
+}
+.login-container{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.login-form-1{
+    padding: 5%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form-1 h3{
+    text-align: center;
+    color: #333;
+}
+.login-container form{
+    padding: 10%;
+}
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+.login-form-1 .btnSubmit{
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
+}
+
+.login-form-1 .ForgetPwd{
+    color: #0062cc;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.form-group {
+    margin-bottom: 5px;
+}
+
+.podnaslov {
+    font-weight: 700;
+}
+.form-label {
+    font-weight: 600;
+}
+
+.btnSubmit{
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
+}
+
+.btnZavrsi{
+    border-radius: 1em;
+    padding: 1,5%;
+    border: none;
+    background-color: #007b4a;
+    color: #fff;
+    width: 60%;
+    height: 40px;
+    font-weight: 600;
+    margin-top: 7px;
+    margin-bottom: 10px;
+}
+
+.btnKomentar {
+    border-radius: 1em;
+    padding: 1,5%;
+    border: none;
+    background-color: #0062cc;
+    color: #fff;
+    width: 25%;
+    height: 40px;
+    font-weight: 600;
+    margin-top: 7px;
+    margin-bottom: 10px;
+}
+
+.btnOtvori {
+    border-radius: 1em;
+    padding: 1,5%;
+    border: none;
+    background-color: #007b4a;
+    color: #fff;
+    width: 100%;
+    height: 40px;
+    font-weight: 600;
+    margin-top: 7px;
+    margin-bottom: 10px;
+}
+
+.obrisi {
+    border-radius: 1em;
+    padding: 1,5%;
+    border: none;
+    background-color: #b14018;
+    color: #fff;
+    width: 100%;
+    height: 40px;
+    font-weight: 600;
+    margin-top: 7px;
+    margin-bottom: 10px;
+}
+
+button.izmena {
+    border-radius: 1em;
+    padding: 1,5%;
+    border: none;
+    background-color: #cc6a00;
+    color: #fff;
+    width: 100%;
+    height: 40px;
+    font-weight: 600;
+    margin-top: 7px;
+    margin-bottom: 10px;
+}
+
+input[type=submit].obrisi {
+    border-radius: 1em;
+    padding: 1,5%;
+    border: none;
+    background-color: #b14018;
+    color: #fff;
+    width: 20%;
+    height: 40px;
+    font-weight: 600;
+    margin-top: 7px;
+    margin-bottom: 10px;
+}
+
+.dodavanje_zadatka_container.col-6 {
+    border-right: solid;
+    border-color: #d3d3d3;
+}

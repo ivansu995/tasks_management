@@ -7,6 +7,7 @@ class Prilog extends Tabela
     public $id;
     public $naziv_priloga;
     public $zadatak_id;
+    public $naziv_fajla;
 
     public function getZadatak()
     {
@@ -35,16 +36,17 @@ class Prilog extends Tabela
         'SELECT * FROM prilozi');  
     }
 
-    public static function dodaj($naziv_priloga, $zadatak_id)
+    public static function dodaj($naziv_priloga, $naziv_fajla, $zadatak_id)
     {
         $db = Database::getInstance();
 
         $id = $db->insert('Prilog',
-            'INSERT INTO prilozi (naziv_priloga, zadatak_id) 
-            VALUES (:naziv_priloga, :zadatak_id)',
+            'INSERT INTO prilozi (naziv_priloga, zadatak_id, naziv_fajla) 
+            VALUES (:naziv_priloga, :zadatak_id, :naziv_fajla)',
             [
                 ':naziv_priloga' => $naziv_priloga,
-                ':zadatak_id' => $zadatak_id
+                ':zadatak_id' => $zadatak_id,
+                ':naziv_fajla' => $naziv_fajla
             ]
         );
 

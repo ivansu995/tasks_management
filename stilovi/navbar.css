@@ -1,0 +1,21 @@
+nav {
+    background: #0062CC;
+    margin-bottom: 15px;
+    border-bottom: solid #d3d3d3;
+    
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    color: #fff;
+    font-weight: 600;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #fff;
+    font-weight: 600;
+}
+
+.navbar-light .navbar-text a {
+    color: #fff;
+    font-weight: 600;
+}

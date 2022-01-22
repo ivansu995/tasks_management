@@ -66,7 +66,8 @@ if (!empty($_FILES['prilog'])) {
         $upload->set_filename($fajl['name']);
         $upload->save();
         $fajl_lokacija = 'prilog/' . $fajl['name'];
-        Prilog::dodaj($fajl_lokacija, $id);
+        $naziv_fajla = $fajl['name'];
+        Prilog::dodaj($fajl_lokacija, $naziv_fajla, $id);
     }
 }
 

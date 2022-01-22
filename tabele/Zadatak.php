@@ -200,4 +200,32 @@ class Zadatak extends Tabela
         );
 
     }
+
+    public static function zavrsiZadatak($id)
+    {
+        $db = Database::getInstance();
+
+        $db->update('Zadatak',
+            'UPDATE zadaci
+            SET zavrsen = "Da"
+            WHERE id = :id',
+            [
+                ':id' => $id,
+            ]
+        );
+    }
+
+    public static function otkaziZadatak($id)
+    {
+        $db = Database::getInstance();
+
+        $db->update('Zadatak',
+            'UPDATE zadaci
+            SET otkazan = "Da"
+            WHERE id = :id',
+            [
+                ':id' => $id,
+            ]
+        );
+    }
 }

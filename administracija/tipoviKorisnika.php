@@ -35,29 +35,53 @@ $tipovi = TipKorisnika::getAll();
     })
 </script>
 
-<h2>Uloge korisnika</h2>
-<form action="../logika/dodajTipKorisnika.php" method="post">
-    <input type="text" name="naziv_tipa" id="naziv" placeholder="Unesite naziv">
-    <input type="hidden" name="naziv_id" id="naziv_id">
-    <input type="submit" value="Snimi">
-</form>
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Naziv</th>
-            <th>Izmeni</th>
-            <th>Obrisi</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach($tipovi as $tip): ?> 
-            <tr>
-                <td><?= $tip->id ?></td>
-                <td><?= $tip->naziv_tipa ?></td>
-                <td><button id="izmeni_<?= $tip->id ?>" class="izmena">Izmeni</button></td>
-                <td><button id="obrisi_<?= $tip->id ?>" class="obrisi">Obrisi</button></td>
-            </tr>
-        <?php endforeach ?>
-    </tbody>
-</table>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <form action="../logika/dodajTipKorisnika.php" method="post">
+                <h4 class="podnaslov">Dodaj tip korisnika</h4>
+                <div class="form-group">
+                    <label for="naziv"
+                        class="form-label">
+                            Naziv tipa korisnika
+                    </label>
+                    <input type="text"
+                        name="naziv_tipa"
+                        id="naziv"
+                        placeholder="Unesite naziv"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="submit"
+                        value="Snimi"
+                        class="btnSubmit">
+                </div>
+                <input type="hidden" name="naziv_id" id="naziv_id">
+            </form>
+        </div>
+    </div><hr>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Naziv</th>
+                        <th>Izmeni</th>
+                        <th>Obrisi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($tipovi as $tip): ?> 
+                        <tr>
+                            <td><?= $tip->id ?></td>
+                            <td><?= $tip->naziv_tipa ?></td>
+                            <td><button id="izmeni_<?= $tip->id ?>" class="izmena">Izmeni</button></td>
+                            <td><button id="obrisi_<?= $tip->id ?>" class="obrisi">Obrisi</button></td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

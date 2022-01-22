@@ -21,7 +21,7 @@ if (isset($_GET['greska_podaci'])) {
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="../forme.css">
+    <link rel="stylesheet" href="../stilovi/forme.css">
 </head>
 <body>
     <div class="container login-container">
@@ -30,26 +30,52 @@ if (isset($_GET['greska_podaci'])) {
                 <h3>Registruj se</h3>
                 <form method="post" action="../logika/registrujSe.php">
                     <div class="form-group">
-                        <input type="email" class="form-control" name="email" placeholder="E-mail adresa">
+                        <input type="email" 
+                            class="form-control" 
+                            name="email" 
+                            placeholder="E-mail adresa">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="korisnicko_ime" placeholder="Unesite korisnicko ime">
+                        <input type="text"
+                            class="form-control"
+                            name="korisnicko_ime"
+                            placeholder="Unesite korisnicko ime">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="lozinka" placeholder="Lozinka">
+                        <input type="password"
+                            class="form-control"
+                            name="lozinka"
+                            placeholder="Lozinka">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="ponovi_lozinku" placeholder="Ponovi lozinku">
+                        <input type="password"
+                            class="form-control"
+                            name="ponovi_lozinku"
+                            placeholder="Ponovi lozinku">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="ime_prezime" placeholder="Unesite ime i prezime">
+                        <input type="text"
+                            class="form-control"
+                            name="ime_prezime"
+                            placeholder="Unesite ime i prezime">
                     </div>
                     <div class="form-group">
-                        <input type="date" class="form-control" name="datum_rodjenja" placeholder="Unesite datum rodjenja">
+                        <input type="date"
+                            class="form-control"
+                            name="datum_rodjenja"
+                            placeholder="Unesite datum rodjenja">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="telefon" placeholder="Broj telefona">
+                        <input type="text"
+                            class="form-control"
+                            name="telefon"
+                            placeholder="Broj telefona">
                     </div>
+                    <?php if ($error !== null): ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?= $error ?>
+                        </div>
+                    <?php endif ?>
                     <div class="form-group">
                         <input type="submit" class="btnSubmit" value="Registruj se">
                     </div>
@@ -62,13 +88,9 @@ if (isset($_GET['greska_podaci'])) {
                             Prijavi se
                         </a>
                     </div>
-                    <p>
-                        <?= $error ?>
-                    </p>
                 </form>
             </div>
         </div>
     </div>
 </body>
 </html>
- 
