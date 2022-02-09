@@ -15,10 +15,11 @@ class TipKorisnika extends Tabela
 
         $tipovi = $db->select('TipKorisnika',
             'SELECT * FROM tipovi_korisnika
-            WHERE naziv_tipa = :naziv_tipa'
+            WHERE naziv_tipa = :naziv_tipa',
             [
                 ':naziv_tipa' => $naziv_tipa,
-            ]);
+            ]
+        );
 
         foreach ($tipovi as $tip) {
             return $tip;
